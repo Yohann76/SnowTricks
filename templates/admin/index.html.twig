@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gerer les Tricks{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1> Gerer les Tricks </h1> 
+
+    {% for message in app.flashes('succes') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th> Name </th>
+                <th> Action </th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for tricks in tricks %}
+        <tr>
+            <td>{{tricks.name }}</td>
+            <td> 
+                <a href="{{ path('admin_tricks_edit', {id : tricks.id } )  }}" class="btn btn-secondary" > Editer </a>
+                
+                <form method="post" action="{{ path('admin_tricks_delete', {id: tricks.id } ) }}" 
+                style="display: inline-block" onsubmit="return confirm('Confirmer la suppression ?')">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tricks.id ) }}">
+                <button class="btn btn-danger">Supprimer</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-right">
+        <a href="{{ path('admin_tricks_new')}}" class="btn btn-primary">Créer une figure</a> 
+    </div>
+</div>
+
+
+
+    
+        
+    
+
+
+{% endblock %}

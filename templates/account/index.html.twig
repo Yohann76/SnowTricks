@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('css/account.css') }}">
+
+{% endblock %}
+
+
+{% block title %}Espace Membre{% endblock %}
+
+{% block body %}
+
+<h1> Gérer votre compte ! </h1>
+<p> Bienvenu {{ app.user.firstName }} ! </p>
+<p> Adresse mail :  {{ app.user.email }} </p>
+
+<p> Vous devez Ajouter une photo ! 
+<p> (( upload.photo )) </p> 
+
+{% endblock %}

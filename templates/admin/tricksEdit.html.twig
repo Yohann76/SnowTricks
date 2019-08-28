@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Tricks{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1> Editer un Tricks </h1> 
+    {{ include ( 'admin/_form.html.twig', {button: 'Editer'} ) }}
+</div>
+
+{% endblock %}

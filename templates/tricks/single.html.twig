@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ tricks.name }}{% endblock %}
+
+
+
+
+
+{% block body %}
+<p> name of tricks : {{ tricks.name }} </p> 
+<p> Contenu : {{ tricks.content }} </p>
+<p> image : </p>
+
+    {% for media in medias %}
+        <img class="img-fluid  " src="../{{ media.path }}" alt="{{ media.text }}" width="20%;">
+    {% endfor %}
+
+
+
+
+    <hr/>
+<h3> Vous avez : 
+    <i class="pr-3 fa fa-comment"></i>{{ tricks.comments|length }} Commentaires
+</h3>
+
+<div class="container">
+    <!-- A paginer --> 
+    {% for comment in tricks.comments %}
+    <hr>
+    {{ comment.content }}
+     de : {{ comment.user.FirstName }}
+    
+    <p> add picture  name and datetime </p> 
+    <hr>
+    {% endfor %}
+    <br/>
+     <!-- A paginer --> 
+
+
+        {% if is_granted('ROLE_USER') %}
+            <h3> Laissez nous un commentaire ! </h3> 
+            {{ form_start(commentForm) }}
+                {{ form_widget(commentForm) }}
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">publié</button>
+                {{ form_end(commentForm) }}
+
+        {% else %}
+            <h2> Veuillez vous Connecter pour participer a l'échange ! </h2> 
+        {% endif %}
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

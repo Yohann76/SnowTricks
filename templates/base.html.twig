@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
+            <link rel="stylesheet" href="{{ asset('css/modern-business.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        {% endblock %}
+        
+
+        <!-- Custom styles for this template -->
+        <link href="public/css/style.css" rel="stylesheet">
+    </head>
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{{ path('app_homepage') }}">SnowTricks</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ path('app_homepage')}}">Home</a>
+          </li>
+
+
+          {% if is_granted('ROLE_USER') %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+            </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('admin_tricks_index')}}"> Gestion Tricks</a>
+              </li>
+          
+
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+            </li>
+
+          {% endif %}
+
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+     <!-- <nav> Home , Tricks , Sign in/Sign Up </nav> --> 
+    
+
+    <header>
+   
+      
+      <div class="carousel-inner" role="listbox">
+        <!-- Slide One - Set the background image for this slide in the line below -->
+        <div class="carousel-item active" style="background-image: url('https://wallpapercave.com/wp/M3a2Ksw.jpg')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>SnowTricks</h3>
+            <p>Le site communautaire de Snow ! </p>
+          </div>
+        </div>
+      
+     
+  </header>
+
+
+    <body>
+        {% block body %}
+           
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+
+
+    <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+</html>
