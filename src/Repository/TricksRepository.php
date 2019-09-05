@@ -22,14 +22,15 @@ class TricksRepository extends ServiceEntityRepository
     /**
      * @return Tricks[]
      */
+
     public function findLatest()
     {
         return $this->createQueryBuilder('p')
             ->setMaxResults(4)
             ->getQuery()
             ->getResult();
-
     }
+
     // /**
     //  * @return Tricks[] Returns an array of Tricks objects
     //  */

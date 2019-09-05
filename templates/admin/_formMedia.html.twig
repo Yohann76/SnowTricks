@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+
+<ul
+        class="media"
+        data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}">
+
+</ul>
+
+<a href="#" class="media" > Ajouter une image </a>
+<input type="submit" value="Créer un tricks">
+
+{% do form.media.SetRendered() %}
+
+    {{ form_end(form) }}

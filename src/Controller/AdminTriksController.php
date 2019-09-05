@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\TricksRepository;
@@ -52,25 +53,33 @@ class AdminTriksController extends AbstractController
     /**
      * @Route("/admin/tricks/create", name="admin_tricks_new")
      */
-    public function new(Request $request)
+    public function new(Request $request, FileUploader $fileUploader, EntityManagerInterface $entityManager)
     {
         $tricks = new Tricks();
-
         $form = $this->createForm(TricksType::class, $tricks);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->om->persist($tricks);
-            $this->om->flush();
+
+            foreach ($tricks->getMedia() as $media) {
+
+                $fileName = $fileUploader->upload($media->getFile() );
+
+                $media->setPath($fileName);
+                $media->setTricks($tricks);
+
+                $entityManager->persist($media);
+            }
+            $entityManager->persist($tricks);
+            $entityManager->flush();
+
             $this->addFlash('succes', 'Création réussi !');
             return $this->redirectToRoute('admin_tricks_index');
         }
-
         return $this->render('admin/tricksNew.html.twig', [
             'tricks' => $tricks,
             'form' => $form->createView()
         ]);
-
     }
 
     /**

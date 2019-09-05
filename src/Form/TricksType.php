@@ -4,7 +4,8 @@ namespace App\Form;
 
 use App\Entity\Tricks;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType; 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,6 +27,11 @@ class TricksType extends AbstractType
             ->add('difficulty' , ChoiceType::class, [
                 'label' => 'Difficulté',
                 'choices' => $this->getChoices()
+            ])
+
+            ->add('media',CollectionType::class, [
+                'entry_type' => MediaType::class,
+                'allow_add' => true
             ])
         ;
     }

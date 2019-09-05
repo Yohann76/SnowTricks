@@ -33,6 +33,26 @@ class Media
      */
     private $tricks;
 
+
+    private $file;
+
+    /**
+     * @return mixed
+     */
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
