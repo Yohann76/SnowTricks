@@ -2,11 +2,11 @@
 Author ! Yohann durand
 */
 
+body {
+    background-color:#fff;
+}
 /* Form login */
 
-body {
-    background-color: #fff;
-}
 .form-signin {
     width: 100%;
     max-width: 330px;
@@ -36,4 +36,18 @@ body {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+}
+
+/* Font-Awesome */
+
+
+/* Card Tricks */
+.card {
+    margin-top: 50px ;
+}
+
+
+/* Single */
+.first-picture {
+    width: 50%;
 }

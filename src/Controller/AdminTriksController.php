@@ -91,6 +91,7 @@ class AdminTriksController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->om->flush();
             $this->addFlash('succes', 'Modification réussi !');
             return $this->redirectToRoute('admin_tricks_index');
@@ -101,6 +102,7 @@ class AdminTriksController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
 
     /**
      * @Route("/admin/tricks/{id}", name="admin_tricks_delete", methods="DELETE")

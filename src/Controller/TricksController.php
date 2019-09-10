@@ -41,15 +41,11 @@ class TricksController extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage() 
+    public function homepage()
     {
-        $tricks = $this->repository->findLatest();
-
-        //  $medias = $this->repository->find();
-
+        $tricks = $this->repository->findAll();
 
         return $this->render('tricks/index.html.twig', [
-           // 'medias' => $medias,
             'tricks' => $tricks
         ]);
     }
@@ -67,16 +63,13 @@ class TricksController extends AbstractController
             ],301);
         }
 
-        
         $form = $this->createForm(CommentType::class);
         $form->handleRequest($request);
  
         if ($form->isSubmitted() && $form->isValid()) {
- 
+
              $comment = $form->getData();
- 
              $comment->setUser($this->getUser() );
-                               
              $comment->setTricks($tricks);
  
              $em = $this->getDoctrine()->getManager();
@@ -89,11 +82,13 @@ class TricksController extends AbstractController
             ],301);
          }
 
-
          $medias = $tricks->getMedia();
+
+        $trick = $this->repository->findAll(); // A voir
 
          return $this->render('tricks/single.html.twig', [
             'tricks' => $tricks,
+             'trick' => $trick, // A voir
            // 'name_user' => $user,
              'medias' => $medias,
             'commentForm' => $form->createView()

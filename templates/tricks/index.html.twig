@@ -9,53 +9,42 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Liste des 4 derniers Tricks : </h1>
+    <h1>Les Tricks  </h1>
 </div>
 
-<div class="container">
-    <!-- Features Section -->
+
+    <!-- Il en faut 5 par ligne --> <!-- Rajouter les bouton a coté du nom  -->
+<div class="card-deck">
     {% for tricks in tricks %}
-        <div class="row">
-            <div class="col-lg-6">
-                <h2>
-                    <a href="{{ path('tricks_single', {id : tricks.id , slug: tricks.slug }) }} "> {{ tricks.name }} </a> 
-                </h2>
-                <ul>
-                    <li>
-                    <strong>Modifié le : {# tricks.publishedAt #} </strong>
-                    </li>
-                    <li>Auteur : {{ tricks.author }}  </li>
-                    <li>Difficulté : {{ tricks.difficulty }}  </li>
-                    <li>Catégorie</li>
-                    <li>Nombre d'image sur cette figure</li>
-                </ul>
-                <p>{{ tricks.description }}</p>
+        <div class="col-sm-3">
+            <div class="card">
+                {% if tricks.media[0].path is defined %}
+                    <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title">
 
-                    {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('admin_tricks_edit', {id : tricks.id } )  }}" class="btn btn-secondary" > Editer </a>
+                            <a href="{{ path('tricks_single', {id : tricks.id , slug: tricks.slug }) }} "> {{ tricks.name }} </a>
 
-                    <form method="post" action="{{ path('admin_tricks_delete', {id: tricks.id } ) }}" 
-                    style="display: inline-block" onsubmit="return confirm('Confirmer la suppression ?')">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tricks.id ) }}">
-                    <button class="btn btn-danger">Supprimer</button>
-                    </form>
+
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('admin_tricks_edit', {id : tricks.id } )  }}" class="btn btn-secondary" > <i class="fas fa-pencil-alt"></i> </a>
+
+                            <form method="post" action="{{ path('admin_tricks_delete', {id: tricks.id } ) }}"
+                                  style="display: inline-block" onsubmit="return confirm('Confirmer la suppression ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tricks.id ) }}">
+                                <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                    </h3>
+
                     {% endif %}
-            
-                
+                    <!-- End User Connect -->
+                    <p class="card-text">Par : {{ tricks.author }}</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago  {# tricks.publishedAt #}</small></p>
+                </div>
             </div>
-            <!-- image de bdd -->
-        <div class="col-lg-6">
-            <img class="img-fluid rounded" src="http://placehold.it/700x450" alt="">
-        </div>
-            {# for media in medias #}
-               <!-- <img class="img-fluid  " src="../{# media.path #}" alt="{# media.text #}" width="20%;"> -->
-            {# endfor #}
-</div>
-        <!-- /.row -->
-
-        <hr>
         </div>
     {% endfor %}
-
+</div>
 {% endblock %}
