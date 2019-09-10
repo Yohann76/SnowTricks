@@ -49,6 +49,31 @@ class User implements UserInterface
      */
     private $token;
 
+    /**
+     * @ORM\Column(type="string", length=255 )
+     */
+    private $picture = "UserPicture.png";
+
+
+    private $file;
+
+    /**
+     * @return mixed
+     */
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -194,6 +219,18 @@ class User implements UserInterface
     public function setToken(?string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

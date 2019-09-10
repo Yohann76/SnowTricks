@@ -39,18 +39,23 @@
 
 
 
-        <!-- A paginer -->
+        <!-- Paginator-->
         {% for comment in tricks.comments %}
         <hr>
-        {{ comment.content }}
-         de : {{ comment.user.FirstName }}
+            <div class="col-sm3">
+                <img class="rounded-circle" src="/uploads/users/{{ comment.user.picture }}" alt="" width="3%;">
+                {{ comment.user.FirstName }}  dit :<br/>
 
-        <p> add picture  name and datetime </p>
-        <hr>
+                {{ comment.content }}
+                <br/>
+                <br/>
+                le {#comment.publishedAt #}
+            </div>
+
+            <hr>
         {% endfor %}
         <br/>
-         <!-- A paginer -->
-
+         <!-- end pagination -->
 
             {% if is_granted('ROLE_USER') %}
                 <h3> <i class="pr-3 fa fa-comment"></i> Laissez nous un commentaire ! </h3>

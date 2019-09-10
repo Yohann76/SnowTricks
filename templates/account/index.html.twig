@@ -12,12 +12,20 @@
 {% block title %}Espace Membre{% endblock %}
 
 {% block body %}
+    <div class="container">
+        <h1> Gérer votre compte ! </h1>
+        <p> Bienvenu {{ app.user.firstName }} ! </p>
+        <p> Adresse mail :  {{ app.user.email }} </p>
 
-<h1> Gérer votre compte ! </h1>
-<p> Bienvenu {{ app.user.firstName }} ! </p>
-<p> Adresse mail :  {{ app.user.email }} </p>
+        {% if app.user.picture is defined %}
+            <img class="rounded-circle" src="/uploads/users/{{ app.user.picture }}" alt="" width="25%;">
+        {% endif %}
 
-<p> Vous devez Ajouter une photo ! 
-<p> (( upload.photo )) </p> 
-
+            <div class="example-wrapper">
+                {{ form_start(PictureUserType) }}
+                {{ form_widget(PictureUserType) }}
+                <button type="submit" class="btn btn-primary">Ajouter une image</button>
+                {{ form_end(PictureUserType) }}
+            </div>
+    </div>
 {% endblock %}

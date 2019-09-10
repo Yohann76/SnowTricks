@@ -84,12 +84,8 @@ class TricksController extends AbstractController
 
          $medias = $tricks->getMedia();
 
-        $trick = $this->repository->findAll(); // A voir
-
          return $this->render('tricks/single.html.twig', [
             'tricks' => $tricks,
-             'trick' => $trick, // A voir
-           // 'name_user' => $user,
              'medias' => $medias,
             'commentForm' => $form->createView()
         ]);
