@@ -113,7 +113,9 @@ class SecurityController extends AbstractController
             $entityManager->flush();
             $mailtarget =  $form->get('Email')->getData();  // avoir l'email de l'utilisateur Formulaire //
 
-
+            //  SSL
+          //  $https['ssl']['verify_peer'] = FALSE;
+          //  $https['ssl']['verify_peer_name'] = FALSE;
 
             $message = (new \Swift_Message('SnowTricks Message'))
                 ->setFrom('yohanndurand76@gmail.com')

@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="container">
-        <h1> name of tricks : {{ tricks.name }} </h1>
+        <h1> Nom du Trick : {{ tricks.name }} </h1>
 
         <!-- Image a la une -->
         <div class="row">
@@ -49,14 +49,13 @@
                 {{ comment.content }}
                 <br/>
                 <br/>
-                le {#comment.publishedAt #}
+                le {{ comment.publishedAt ? comment.publishedAt|date('Y-m-d') : 'unpublished' }}
             </div>
 
             <hr>
         {% endfor %}
         <br/>
          <!-- end pagination -->
-
             {% if is_granted('ROLE_USER') %}
                 <h3> <i class="pr-3 fa fa-comment"></i> Laissez nous un commentaire ! </h3>
                 {{ form_start(commentForm) }}

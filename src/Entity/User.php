@@ -58,6 +58,11 @@ class User implements UserInterface
     private $file;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tricks", mappedBy="author")
+     */
+    private $tricks;
+
+    /**
      * @return mixed
      */
 
@@ -77,6 +82,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,6 +237,37 @@ class User implements UserInterface
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tricks[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+    public function addTrick(Tricks $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Tricks $trick): self
+    {
+        if ($this->tricks->contains($trick)) {
+            $this->tricks->removeElement($trick);
+            // set the owning side to null (unless already changed)
+            if ($trick->getAuthor() === $this) {
+                $trick->setAuthor(null);
+            }
+        }
 
         return $this;
     }

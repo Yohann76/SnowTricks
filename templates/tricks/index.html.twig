@@ -40,8 +40,9 @@
 
                     {% endif %}
                     <!-- End User Connect -->
-                    <p class="card-text">Par : {{ tricks.author }}</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago  {# tricks.publishedAt #}</small></p>
+                    <p class="card-text">Par : {{ tricks.author.FirstName }}</p>
+                    <p class="card-text"><small class="text-muted">Mis a jour le {{ tricks.publishedAt ? tricks.publishedAt|date('Y-m-d') : 'unpublished' }}  </small></p>
+
                 </div>
             </div>
         </div>

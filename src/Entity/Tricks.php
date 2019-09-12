@@ -57,10 +57,6 @@ class Tricks
         $this->media = new ArrayCollection();
     }
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $author;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -76,6 +72,11 @@ class Tricks
      * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="tricks")
      */
     private $media;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
+     */
+    private $author;
 
     public function getId(): ?int
     {
@@ -136,17 +137,6 @@ class Tricks
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -219,6 +209,18 @@ class Tricks
                 $medium->setTricks(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
