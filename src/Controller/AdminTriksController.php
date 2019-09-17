@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Media;
 use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Request;
@@ -129,15 +130,36 @@ class AdminTriksController extends AbstractController
 
 
     /**
-     * @Route("/admin/tricks/{id}", name="admin_tricks_delete", methods="DELETE")
+     * @Route("/admin/tricks/delete/{id}", name="admin_tricks_delete", methods="DELETE")
      */
     public function delete(Tricks $tricks,Request $request)
-    { 
+    {
         if($this->isCsrfTokenValid('delete'. $tricks->getId(), $request->get('_token') ) ) {
-            $this->om->remove($tricks);
-            $this->om->flush();
-            $this->addFlash('succes', 'Suppression réussi !');
+
+            $entityManager = $this->getDoctrine()->getManager();
+            /* Delete Media */
+            $MediaRepository = $this->getDoctrine()->getRepository(Media::class);
+            $medias = $MediaRepository->findBy(array('tricks' => $tricks->getId()));
+            foreach($medias as $media)
+            {
+                $entityManager->remove($media);
+            }
+
+            /* Delete Comment */
+            $CommentRepository = $this->getDoctrine()->getRepository(Comment::class);
+            $comments = $CommentRepository->findBy(array('tricks' => $tricks->getId()));
+            foreach($comments as $comment)
+            {
+                $entityManager->remove($comment);
+            }
+            /* Delete Tricks */
+            $repository = $this->getDoctrine()->getRepository(Tricks::class);
+            $tricks = $repository->findOneBy(array('id' => $tricks->getId()));
+            $entityManager->remove($tricks);
+            $entityManager->flush();
         }
+
+        $this->addFlash('succes','Tricks Supprimé');
 
       return $this->redirectToRoute('admin_tricks_index');
     }
