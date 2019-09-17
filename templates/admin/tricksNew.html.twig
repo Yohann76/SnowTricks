@@ -8,9 +8,6 @@
 
     <h2>Créer un Tricks & ajoutée des medias!  </h2>
     {{  include('admin/_formMedia.html.twig') }}
-
-     {# include ( 'admin/_form.html.twig', {button: 'Créer'} ) #}
-
 </div>
 
 {% endblock %}
@@ -28,7 +25,7 @@
         var $collectionHolder;
 
         // setup an "add a media" link
-        var $addMediaButton = $('<button type="button" class="add_media_link">Add a media</button>');
+        var $addMediaButton = $('<button type="button" class="add_media_link">Ajouter une image</button>');
         var $newLinkLi = $('<li></li>').append($addMediaButton);
 
         jQuery(document).ready(function() {

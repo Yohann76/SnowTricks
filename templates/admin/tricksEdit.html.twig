@@ -4,10 +4,26 @@
 
 {% block body %}
 
-<div class="container">
-    <h1> Editer un Tricks </h1>
-    {{  include('admin/_formMedia.html.twig', { button: 'Editer'} ) }}
-</div>
+    <div class="container">
+        <h1> Editer un Tricks </h1>
+        {{  include('admin/_formMedia.html.twig') }}
+
+        <br/>
+        <h1>Media pour ce tricks</h1>
+        <hr>
+        <!-- For delete -->
+       {% if tricks.media is defined %}
+            {% for media in medias %}
+                <div class="img-delete">
+                    <img class="img-fluid " src="/uploads/{{ media.path }}" alt="/uploads/{{ media.text }}" width="24%;"><br/>
+                    <a data-toggle="modal" href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette image</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+
+
 
 {% endblock %}
 
@@ -20,11 +36,31 @@
 
     </script>
 
+
+    <script>
+        // Boite de confirmation de suppression d'image
+        $('[data-toggle="modal"]').on( 'click', function attention() {
+
+            resultat=window.confirm('Attention, vous êtes sur le point de supprimer une image du Tricks, voulez-vous continuer ?');
+            if (resultat==1)
+            {
+            }
+            else
+            {
+                return false;
+            }
+
+        });
+
+    </script>
+
+
     <script>
         var $collectionHolder;
 
         // setup an "add a media" link
-        var $addMediaButton = $('<button type="button" class="add_media_link">Add a media</button>');
+
+        var $addMediaButton = $('<button type="button" class="add_media_link">Ajouter une image</button>');
         var $newLinkLi = $('<li></li>').append($addMediaButton);
 
         jQuery(document).ready(function() {

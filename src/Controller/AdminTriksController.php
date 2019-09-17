@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Media;
 use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,14 +40,12 @@ class AdminTriksController extends AbstractController
         $this->om =$om;
     }
 
-
     /**
      * @Route("/admin", name="admin_tricks_index")
      */
     public function index()
     {
-        $tricks = $this->repository->findAll(); 
-        
+        $tricks = $this->repository->findAll();
         return $this->render('admin/index.html.twig', compact('tricks')  )   ;
     }
 
@@ -62,7 +61,6 @@ class AdminTriksController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             foreach ($tricks->getMedia() as $media) {
-
                 $fileName = $fileUploader->upload($media->getFile() );
 
                 $media->setPath($fileName);
@@ -70,6 +68,9 @@ class AdminTriksController extends AbstractController
 
                 $entityManager->persist($media);
             }
+            $user = $this->getUser() ; // Récupére l'utilisateur courant
+            $tricks->setAuthor($user);
+
             $entityManager->persist($tricks);
             $entityManager->flush();
 
@@ -83,22 +84,45 @@ class AdminTriksController extends AbstractController
     }
 
     /**
-     * @Route("/admin/tricks/{id}", name="admin_tricks_edit", methods="GET|POST")
+     * @Route("/admin/tricks/{id}", name="admin_tricks_edit")
      */
-    public function edit(Tricks $tricks, Request $request)
+    public function edit(Tricks $tricks,Request $request,FileUploader $fileUploader, EntityManagerInterface $entityManager)
     {
+
         $form = $this->createForm(TricksType::class, $tricks); 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->om->flush();
+            $trick = $form->getData();
+            $trick->setAuthor($this->getUser());
+
+            foreach ($tricks->getMedia() as $i) {
+
+                $media = New Media();
+                $fileName = $fileUploader->upload($i->getFile() );
+
+                $media->setPath($fileName);
+                $media->setTricks($trick);
+
+                $media->setText( $i->getText() );
+
+                $entityManager->persist($media);
+                $entityManager->flush();
+            }
+
+            $entityManager->persist($tricks);
+            $entityManager->flush();
+
             $this->addFlash('succes', 'Modification réussi !');
             return $this->redirectToRoute('admin_tricks_index');
-
         }
+
+        $medias = $tricks->getMedia(); // just View
+
         return $this->render('admin/tricksEdit.html.twig', [
             'tricks' => $tricks,
+            'medias' => $medias,
             'form' => $form->createView()
         ]);
     }
