@@ -6,22 +6,45 @@
 
     <div class="container">
         <h1> Editer un Tricks </h1>
-        {{  include('admin/_formMedia.html.twig') }}
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.difficulty) }}
 
         <br/>
         <h1>Media pour ce tricks</h1>
         <hr>
-        <!-- For delete -->
-       {% if tricks.media is defined %}
-            {% for media in medias %}
-                <div class="img-delete">
-                    <img class="img-fluid " src="/uploads/{{ media.path }}" alt="/uploads/{{ media.text }}" width="24%;"><br/>
-                    <a data-toggle="modal" href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette image</a>
-                </div>
-            {% endfor %}
-        {% endif %}
+        <div class="row">
+            <!-- for delete -->
+            {% if tricks.media is defined %}
+                {% for media in medias %}
+                    <div class="col-sm">
+                        <div class="img-delete">
+                            <img class="img-fluid " src="/uploads/{{ media.path }}" alt="/uploads/{{ media.text }}" width="100%;"<br/>
+                            <a data-toggle="modal" href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette image</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
 
+        <div class="col-xs3">
+            <ul class="media"
+                data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}"
+                data-value="{{ form.media|length }}"> <!-- Compter le nombre -->
+            </ul>
+        </div>
+
+
+        {% do form.media.setRendered %}
+        <input class="btn btn-primary" type="submit" value="Enregistrer">
+        {{ form_end(form) }}
     </div>
+
+
+
+
 
 
 
@@ -84,7 +107,8 @@
             var prototype = $collectionHolder.data('prototype');
 
             // get the new index
-            var index = $collectionHolder.data('index');
+            var index = $collectionHolder.data('value');
+            console.log(index) ;
 
             var newForm = prototype;
             // You need this only if you didn't set 'label' => false in your medias field in TaskType

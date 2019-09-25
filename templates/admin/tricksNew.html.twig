@@ -7,7 +7,27 @@
 <div class="container">
 
     <h2>Créer un Tricks & ajoutée des medias!  </h2>
-    {{  include('admin/_formMedia.html.twig') }}
+
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.content) }}
+    {{ form_row(form.difficulty) }}
+
+
+    <div class="col-xs3">
+        <ul class="media"
+            data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}"
+            data-index="{{ form.media|length }}"> <!-- Compter le nombre -->
+        </ul>
+    </div>
+
+    {% do form.media.setRendered %}
+    <input class="btn btn-primary" type="submit" value="Enregistrer">
+    {{ form_end(form) }}
+
+
 </div>
 
 {% endblock %}

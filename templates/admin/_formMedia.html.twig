@@ -1,21 +1,12 @@
-{{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.content) }}
-        {{ form_row(form.difficulty) }}
-
-        {% do form.media.SetRendered() %}
 
 
-        <div class="col-xs3">
-            <ul class="media"
-                data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}">
-            </ul>
-        </div>
 
 
-        <input class="btn btn-primary" type="submit" value="Enregistrer">
-{{ form_end(form) }}
+
+
+
+
+
 
 
 

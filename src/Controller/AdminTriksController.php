@@ -89,38 +89,34 @@ class AdminTriksController extends AbstractController
      */
     public function edit(Tricks $tricks,Request $request,FileUploader $fileUploader, EntityManagerInterface $entityManager)
     {
-
-        $form = $this->createForm(TricksType::class, $tricks); 
+        $form = $this->createForm(TricksType::class, $tricks);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData() );
 
             $trick = $form->getData();
             $trick->setAuthor($this->getUser());
 
-            foreach ($tricks->getMedia() as $i) {
+            foreach ($tricks->getMedia() as $media) {
+                if(!$media->getId()) {
+                    $fileName = $fileUploader->upload($media->getFile());
 
-                $media = New Media();
-                $fileName = $fileUploader->upload($i->getFile() );
-
-                $media->setPath($fileName);
-                $media->setTricks($trick);
-
-                $media->setText( $i->getText() );
-
-                $entityManager->persist($media);
-                $entityManager->flush();
+                    $media->setTricks($trick);
+                    $media->setPath($fileName);
+                    $media->setText($media->getText());
+                }
             }
+
 
             $entityManager->persist($tricks);
             $entityManager->flush();
 
             $this->addFlash('succes', 'Modification réussi !');
+
             return $this->redirectToRoute('admin_tricks_index');
         }
 
         $medias = $tricks->getMedia(); // just View
-
         return $this->render('admin/tricksEdit.html.twig', [
             'tricks' => $tricks,
             'medias' => $medias,
