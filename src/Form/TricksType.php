@@ -1,5 +1,7 @@
-<?php	
-namespace App\Form;	
+<?php
+
+namespace App\Form;
+
 use App\Entity\Tricks;	
 use App\Entity\User;	
 use Symfony\Component\Form\AbstractType;	
@@ -7,7 +9,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;	
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;	
 use Symfony\Component\Form\FormBuilderInterface;	
-use Symfony\Component\OptionsResolver\OptionsResolver;	
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 class TricksType extends AbstractType	
 {	
     public function buildForm(FormBuilderInterface $builder, array $options)	
@@ -31,7 +34,16 @@ class TricksType extends AbstractType
                 'allow_delete' => true,	
                 'required'   => false,	
                 'prototype' => true,	
-            ])	
+            ])
+            ->add('Embed', CollectionType::class, [
+                'entry_type' => EmbedFormType::class,
+                /*'help' => ' example : <embed src="https://www.youtube.com/watch?v=1BjgBoummtE" autostart="false" height="30%" width="40%" />',*/
+                'required' => false,
+                'prototype' => true,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'mapped' => false,
+            ])
         ; 	
     }	
     public function configureOptions(OptionsResolver $resolver)	

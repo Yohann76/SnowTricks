@@ -72,6 +72,15 @@ class AdminTriksController extends AbstractController
             $user = $this->getUser() ; // Récupére l'utilisateur courant
             $tricks->setAuthor($user);
 
+
+            foreach ($form->get('Embed')->getData() as  $embed) {
+                $video = New Media();
+                $video->setPath($embed->getEmbed());
+                $video->setTricks($tricks);
+                $entityManager->persist($video);
+                $video->setText('Embed');
+            }
+
             $entityManager->persist($tricks);
             $entityManager->flush();
 

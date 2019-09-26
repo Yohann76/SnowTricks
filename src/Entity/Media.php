@@ -33,6 +33,17 @@ class Media
      */
     private $tricks;
 
+    private $Embed;
+
+    public function getEmbed()
+    {
+        return $this->Embed;
+    }
+
+    public function setEmbed($Embed): void
+    {
+        $this->Embed = $Embed;
+    }
 
     private $file;
 

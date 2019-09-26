@@ -15,32 +15,52 @@
         <br/>
         <h1>Media pour ce tricks</h1>
         <hr>
-        <div class="row">
-            <!-- for delete -->
-            {% if tricks.media is defined %}
-                {% for media in medias %}
+        <!-- for delete image-->
+        <h1>Image pour ce tricks</h1><br/>
+
+        {% if tricks.media is defined %}
+            {% for media in medias %}
+                {%  if media.text != "Embed" %}
                     <div class="col-sm">
                         <div class="img-delete">
-                            <img class="img-fluid " src="/uploads/{{ media.path }}" alt="/uploads/{{ media.text }}" width="100%;"<br/>
-                            <a data-toggle="modal" href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette image</a>
+                            <div class="row">
+                                <img class="img-fluid" src="/uploads/{{ media.path }}" alt="/uploads/{{ media.text }}" width="23%;"><br/>
+                            </div>
+                            <div class="row">
+                                <a data-toggle="modal" href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette image</a>
+                            </div>
                         </div>
                     </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <hr>
+        <!-- for delete embed -->
+        <h1>Vidéo pour ce tricks</h1><br/>
+        {% if tricks.media is defined %}
+            {% for media in medias %}
+                {%  if media.text == "Embed" %}
+                    <div class="delete_embed">{{ media.path|html }}</div>
+                    <div class="delete_embed_link">
+                        <a data-toggle="modal" href="{{ path('image_delete',{id: media.id}) }}" >Supprimer cette Vidéo</a>
+                    </div>
+                {% endif  %}
+            {% endfor %}
+        {% endif %}
 
         <div class="col-xs3">
             <ul class="media"
                 data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}"
-                data-value="{{ form.media|length }}"> <!-- Compter le nombre -->
+                data-value="{{ form.media|length }}">
             </ul>
         </div>
-
 
         {% do form.media.setRendered %}
         <input class="btn btn-primary" type="submit" value="Enregistrer">
         {{ form_end(form) }}
     </div>
+
 
 
 
@@ -56,7 +76,6 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous">
-
     </script>
 
 

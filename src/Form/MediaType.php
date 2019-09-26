@@ -1,6 +1,7 @@
 <?php	
-namespace App\Form;	
-use App\DataFixtures\TricksFixture;	
+namespace App\Form;
+
+use App\DataFixtures\TricksFixture;
 use App\Entity\Media;	
 use App\Entity\Tricks;	
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;	
@@ -10,7 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;	
 use Symfony\Component\OptionsResolver\OptionsResolver;	
 use Symfony\Component\Form\FormTypeInterface;	
-use Symfony\Component\Form\FormView;	
+use Symfony\Component\Form\FormView;
+
 class MediaType extends AbstractType	
 {	
     public function buildForm(FormBuilderInterface $builder, array $options)	

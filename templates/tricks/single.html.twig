@@ -23,12 +23,24 @@
 
         <p> Contenu : {{ tricks.content }} </p>
 
-        <p> Les autres image du tricks : </p>
+        <p> Les autres image du tricks :
+        </p>
         {% for media in medias %}
-            <img class="img-fluid " src="/uploads/{{ media.path }}" alt="" width="33%;">
+            {%  if media.text !== "Embed" %}
+                <img class="img-fluid " src="/uploads/{{ media.path }}" alt="" width="33%;">
+            {% endif  %}
         {% endfor %}
 
+
+
         <p> Voir des vidéo : </p>
+        <!-- Si text est = a Embed alors afficher -->
+        {% for media in medias %}
+            {%  if media.text == "Embed" %}
+            {{ media.path|html }}
+            {% endif  %}
+
+        {% endfor %}
 
 
 
