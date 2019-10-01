@@ -132,6 +132,7 @@ class AdminTriksController extends AbstractController
         }
 
         $medias = $tricks->getMedia(); // just View
+
         return $this->render('admin/tricksEdit.html.twig', [
             'tricks' => $tricks,
             'medias' => $medias,

@@ -2,9 +2,14 @@
     {% for tricks in tricks %}
         <div class="col-sm-3">
             <div class="card">
-                {% if tricks.media[0].path is defined %}
+                <!-- image a la une -->
+                {% if tricks.media[0].path is defined and tricks.media[0].text != "Embed"  %}
                     <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
+                {% else %}
+                    <!-- image par defaut -->
+                    <img class="card-img-top" src="/uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
                 {% endif %}
+
                 <div class="card-body">
                     <h3 class="card-title">
                         <a href="{{ path('tricks_single', {id : tricks.id , slug: tricks.slug }) }} "> {{ tricks.name }} </a>

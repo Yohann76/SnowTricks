@@ -16,8 +16,11 @@
         <div class="row">
             <div class="col-lg-12 text-center" >
                 <div class="first-picture">
-                    {% if tricks.media[0].path is defined %}
+                    {% if tricks.media[0].path is defined and tricks.media[0].text != "Embed"  %}
                         <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
+                    {% else %}
+                        <!-- image par defaut -->
+                        <img class="card-img-top" src="/uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
                     {% endif %}
                 </div>
             </div>
