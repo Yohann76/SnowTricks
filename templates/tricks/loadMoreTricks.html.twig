@@ -1,0 +1,31 @@
+<div class="card-deck">
+    {% for tricks in tricks %}
+        <div class="col-sm-3">
+            <div class="card">
+                {% if tricks.media[0].path is defined %}
+                    <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
+                {% endif %}
+                <div class="card-body">
+                    <h3 class="card-title">
+                        <a href="{{ path('tricks_single', {id : tricks.id , slug: tricks.slug }) }} "> {{ tricks.name }} </a>
+                        {% if is_granted('ROLE_USER') %}
+                        <a href="{{ path('admin_tricks_edit', {id : tricks.id } )  }}" class="btn btn-secondary" > <i class="fas fa-pencil-alt"></i> </a>
+
+                        <form method="post" action="{{ path('admin_tricks_delete', {id: tricks.id } ) }}"
+                              style="display: inline-block" onsubmit="return confirm('Confirmer la suppression ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tricks.id ) }}">
+                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </h3>
+
+                    {% endif %}
+                    <!-- End User Connect -->
+                    <p class="card-text">Par : {{ tricks.author.FirstName }}</p>
+                    <p class="card-text"><small class="text-muted">Mis a jour le {{ tricks.publishedAt ? tricks.publishedAt|date('Y-m-d') : 'unpublished' }}  </small></p>
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

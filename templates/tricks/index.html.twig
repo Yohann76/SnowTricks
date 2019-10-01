@@ -12,40 +12,88 @@
     <h1>Les Tricks  </h1>
 </div>
 
+    <!-- Pagination  -->
+    <div class="row" id="trickList">
+        <div class="card-deck">
+            {% for tricks in tricks %}
+                <div class="col-sm-3">
+                    <div class="card">
+                        {% if tricks.media[0].path is defined %}
+                            <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
+                        {% endif %}
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <a href="{{ path('tricks_single', {id : tricks.id , slug: tricks.slug }) }} "> {{ tricks.name }} </a>
+                                {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('admin_tricks_edit', {id : tricks.id } )  }}" class="btn btn-secondary" > <i class="fas fa-pencil-alt"></i> </a>
 
-    <!-- Il en faut 5 par ligne --> <!-- Rajouter les bouton a coté du nom  -->
-<div class="card-deck">
-    {% for tricks in tricks %}
-        <div class="col-sm-3">
-            <div class="card">
-                {% if tricks.media[0].path is defined %}
-                    <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
-                {% endif %}
-                <div class="card-body">
-                    <h3 class="card-title">
+                                <form method="post" action="{{ path('admin_tricks_delete', {id: tricks.id } ) }}"
+                                      style="display: inline-block" onsubmit="return confirm('Confirmer la suppression ?')">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tricks.id ) }}">
+                                    <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </h3>
 
-                            <a href="{{ path('tricks_single', {id : tricks.id , slug: tricks.slug }) }} "> {{ tricks.name }} </a>
+                                {% endif %}
+                            <!-- End User Connect -->
+                            <p class="card-text">Par : {{ tricks.author.FirstName }}</p>
+                            <p class="card-text"><small class="text-muted">Mis a jour le {{ tricks.publishedAt ? tricks.publishedAt|date('Y-m-d') : 'unpublished' }}  </small></p>
 
-
-                        {% if is_granted('ROLE_USER') %}
-                            <a href="{{ path('admin_tricks_edit', {id : tricks.id } )  }}" class="btn btn-secondary" > <i class="fas fa-pencil-alt"></i> </a>
-
-                            <form method="post" action="{{ path('admin_tricks_delete', {id: tricks.id } ) }}"
-                                  style="display: inline-block" onsubmit="return confirm('Confirmer la suppression ?')">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tricks.id ) }}">
-                                <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                            </form>
-                    </h3>
-
-                    {% endif %}
-                    <!-- End User Connect -->
-                    <p class="card-text">Par : {{ tricks.author.FirstName }}</p>
-                    <p class="card-text"><small class="text-muted">Mis a jour le {{ tricks.publishedAt ? tricks.publishedAt|date('Y-m-d') : 'unpublished' }}  </small></p>
-
+                        </div>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-</div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <button id="loadMoreTricks" class="btn btn-primary">Voir plus de tricks</button>
+        </div>
+    </div>
+
+    <!-- Up on page -->
+    <a href="#"><i id="arrow-up" class="fas fa-arrow-up fa-3x float-right"></i></a></div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+    </script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        $("#arrow-up").hide();
+        click = 0;
+
+        function loadMoreTricks(event) {
+            event.preventDefault();
+            click++;
+            var start = 8 * click;
+            const url = "{{ path('loadMoreTricks') }}" + start;
+            axios.get(url).then(function(response) {
+
+                $("#trickList").append(response.data);
+                $("#arrow-up").show();
+            }).catch(function (error) {
+                if (response.status === 403) {
+                    window.alert("Vous n'êtes pas autorisé à effectuer cette action !");
+                }
+                else if (response.status === 404) {
+                    window.alert("La page appelé n'existe pas");
+                }
+                else {
+                    window.alert("Une erreur est survenue !");
+                }
+            });
+        }
+        document.getElementById("loadMoreTricks").addEventListener("click", loadMoreTricks);
+    </script>
 {% endblock %}

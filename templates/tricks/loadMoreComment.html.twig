@@ -1,0 +1,13 @@
+{%   for comment in comment   %}
+    <hr>
+    <div class="col-sm3">
+        <img class="rounded-circle" src="/uploads/users/{{ comment.user.picture }}" alt="" width="3%;">
+        {{ comment.user.FirstName }}  dit :<br/>
+        {{ comment.content }}
+        <br/>
+        <br/>
+        le {{ comment.publishedAt ? comment.publishedAt|date('Y-m-d') : 'unpublished' }}
+    </div>
+
+    <hr>
+{% endfor %}

@@ -16,7 +16,7 @@
     {{ form_row(form.difficulty) }}
 
 
-    <div class="col-xs3">
+    <div class="col-xs6">
         <ul class="media"
             data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}"
             data-index="{{ form.media|length }}"> <!-- Compter le nombre -->
@@ -24,7 +24,7 @@
     </div>
 
 
-    <div class="col-xs3">
+    <div class="col-xs6">
         <ul id="embed"
             data-prototype ="{{ form_widget(form.Embed.vars.prototype)|e('html_attr') }}"
             data-index="{{ form.Embed|length }}">
@@ -58,7 +58,7 @@
 
         //embed
         var $collectionHolder1;
-        var $addEmbedButton1 = $('<button type="button" class="add_embed_link">Ajouter une balise Embed</button>');
+        var $addEmbedButton1 = $('<button type="button" class="add_embed_link">Ajouter une vidéo</button>');
         var $newLinkLi1 = $('<li></li>').append($addEmbedButton1);
         console.log($newLinkLi1);
 

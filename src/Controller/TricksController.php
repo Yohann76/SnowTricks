@@ -36,14 +36,16 @@ class TricksController extends AbstractController
         $this->repository = $repository;
         $this->om = $om ; 
     }
-    
+
 
     /**
+     * Display the home page
      * @Route("/", name="app_homepage")
      */
-    public function homepage()
+    public function homepage(TricksRepository $repository)
     {
-        $tricks = $this->repository->findAll();
+        // Get 8 tricks from position 0
+        $tricks = $repository->findBy([], ['publishedAt' => 'DESC'], 8, 0);
 
         return $this->render('tricks/index.html.twig', [
             'tricks' => $tricks
@@ -51,9 +53,23 @@ class TricksController extends AbstractController
     }
 
     /**
+     * Get the 8 next tricks
+     * @Route("/{start}", name="loadMoreTricks", requirements={"start": "\d+"})
+     */
+    public function loadMoreTricks(TricksRepository $repository, $start = 8)
+    {
+        // Get 15 tricks from the start position
+        $tricks = $repository->findBy([], ['publishedAt' => 'DESC'], 8, $start);
+        return $this->render('tricks/loadMoreTricks.html.twig', [
+            'tricks' => $tricks
+        ]);
+    }
+
+    /**
+     * Display Single Page
      * @Route("/tricks/{slug}-{id}", name="tricks_single", requirements={"slug": "[a-z0-9\-]*" })
      */
-    public function single(Tricks $tricks, string $slug, Request $request) :Response
+    public function single(Tricks $tricks, string $slug, Request $request, CommentRepository $repository) :Response
     {
        // if !slug  
        if($tricks->getSlug() !== $slug ) {
@@ -63,8 +79,8 @@ class TricksController extends AbstractController
             ],301);
         }
 
-        $form = $this->createForm(CommentType::class);
-        $form->handleRequest($request);
+       $form = $this->createForm(CommentType::class);
+       $form->handleRequest($request);
  
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -82,14 +98,30 @@ class TricksController extends AbstractController
             ],301);
          }
 
-         $medias = $tricks->getMedia();
+        $medias = $tricks->getMedia();
+
+        $comment = $repository->findBy(['tricks' => $tricks->getId()], ['publishedAt' => 'DESC'], 3, 0);
 
          return $this->render('tricks/single.html.twig', [
-            'tricks' => $tricks,
+             'comment' => $comment,
+             'tricks' => $tricks,
              'medias' => $medias,
-            'commentForm' => $form->createView()
+             'commentForm' => $form->createView()
         ]);
-
     }
 
+
+    /**
+     * Get the 3 next Comment
+     * @Route("/tricks/{tricks}/{start}", name="loadMoreComment", requirements={"start": "\d+"})
+     */
+    public function loadMoreComment(Tricks $tricks,CommentRepository $repository, $start = 3 )
+    {
+        $comment = $repository->findBy(['tricks' => $tricks->getId()], ['publishedAt' => 'DESC'], 3, $start);
+
+        return $this->render('tricks/loadMoreComment.html.twig', [
+            'comment' => $comment,
+            'start' => $start
+        ]);
+    }
 }

@@ -1,5 +1,5 @@
 /*
-Author ! Yohann durand
+Author : Yohann durand
 */
 
 body {
@@ -38,52 +38,50 @@ body {
     border-top-right-radius: 0;
 }
 
-/* Font-Awesome */
-
 
 /* Card Tricks */
 .card {
     margin-top: 50px ;
 }
 
-
 /* Single */
 .first-picture {
     width: 50%;
 }
-
 
 /* Media */
 .add_media_link {
     color : #fff ;
     background-color: #007bff;
     border: none ;
-    width: 85%;
+    width: 100%;
     height: 40px ;
-    margin: 5%;
-
+    margin: 1%;
 }
 
+.add_embed_link {
+    color : #fff ;
+    background-color: #007bff;
+    border: none ;
+    width: 100%;
+    height: 40px ;
+    margin: 1%;
+}
 
 ul.media li {
     list-style-type: none;
-    margin : auto ;
     display: inline;
-    width: 50%;
+    width: 100%;
+}
+
+ul#embed li {
+    list-style-type: none;
+    display: inline;
+    width: 100%;
 }
 
 ul {
     list-style-type : none;
-}
-ul.media {
-    margin: 5%;
-    padding: 5% ;
-    display: inline;
-
-}
-/* Embed */
-ul.embed {
-    list-style-type: none;
 }
 
 .delete_embed_link {
@@ -96,20 +94,8 @@ ul.embed {
     margin: auto ;
 }
 
-.add_embed_link {
-    color : #fff ;
-    background-color: #007bff;
-    border: none ;
-    width: 85%;
-    height: 40px ;
-
-}
-
-ul.embed li {
-    list-style-type: none;
-    margin : auto ;
-    display: inline;
-    width: 50%;
+#tricks_media {
+    margin-left: 15px ;
 }
 
 .custom-file-label::after {
@@ -117,7 +103,6 @@ ul.embed li {
     background-color: #007bff;
 }
 
-/* boite de confirmation */
 #modal {
     position: absolute;
     top: 0;
@@ -127,3 +112,15 @@ ul.embed li {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+button#loadMoreTricks.btn.btn-primary {
+    margin-top: 5% ;
+}
+
+button#loadMoreComment.btn.btn-primary {
+    margin-top: 5% ;
+    margin-bottom: 5% ;
+}
+
+
+
