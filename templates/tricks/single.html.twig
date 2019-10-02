@@ -8,14 +8,19 @@
 
 {% block body %}
     <div class="container">
-        <h1> Nom du Trick : {{ tricks.name }} </h1>
+        <h1> Nom du Trick : {{ tricks.name }} </h1> <br/>
+        <h2> Catégorie : {{ tricks.categoryType }} </h2><br/>
+        <h2> Difficulté : {{ tricks.difficultyType }} </h2> <br/>
 
         <!-- Image a la une -->
         <div class="row">
             <div class="col-lg-12 text-center" >
                 <div class="first-picture">
-                    {% if tricks.media[0].path is defined %}
+                    {% if tricks.media[0].path is defined and tricks.media[0].text != "Embed"  %}
                         <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
+                    {% else %}
+                        <!-- image par defaut -->
+                        <img class="card-img-top" src="/uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
                     {% endif %}
                 </div>
             </div>

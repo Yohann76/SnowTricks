@@ -27,7 +27,11 @@ class TricksType extends AbstractType
             ->add('difficulty' , ChoiceType::class, [	
                 'label' => 'Difficulté',
                 'choices' => $this->getChoices()	
-            ])	
+            ])
+            ->add('category' , ChoiceType::class, [
+                'label' => 'Catégorie',
+                'choices' => $this->getChoicesCategory()
+            ])
             ->add('media',CollectionType::class, [	
                 'entry_type' => MediaType::class,	
                 'allow_add' => true,	
@@ -61,5 +65,15 @@ class TricksType extends AbstractType
             $output[$v] = $k;	
         }	
         return $output; 	
-    }	
+    }
+
+    // Get number->tab
+    private function getChoicesCategory() {
+        $choices =  Tricks::Category;
+        $output = [];
+        foreach($choices as $k => $v) {
+            $output[$v] = $k;
+        }
+        return $output;
+    }
 }

@@ -35,6 +35,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks1->setName('mute')
             ->setContent('Contenu de la nouvelle figure')
             ->setDifficulty('1')
+            ->setCategory('0')
             ->setDescription('Description de la figure numéro 1 ')
             ->setAuthor($this->getReference(UserFixture::USER1))
         ;
@@ -47,6 +48,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks2->setName('sad')
             ->setContent('Hello Cette 2iem figure est en effet trés dificille...')
             ->setDifficulty('2')
+            ->setCategory('1')
             ->setDescription('Description de la figure numéro 2')
             ->setAuthor($this->getReference(UserFixture::USER1))
         ;
@@ -58,6 +60,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks3->setName('style week')
             ->setContent('Hello Cette 3iem figure est en effet trés dificille...')
             ->setDifficulty('2')
+            ->setCategory('2')
             ->setDescription('Description de la figure numéro 3')
 
             ->setAuthor($this->getReference(UserFixture::USER1))
@@ -70,6 +73,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks4->setName('indy')
             ->setContent('Hello Cette 4iem figure est en effet trés dificille...')
             ->setDifficulty('2')
+            ->setCategory('2')
             ->setDescription('Description de la figure numéro 4')
 
             ->setAuthor($this->getReference(UserFixture::USER1))
@@ -82,6 +86,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks5->setName('stalefish')
             ->setContent('Hello Cette 5iem figure est en effet trés dificille...')
             ->setDifficulty('2')
+            ->setCategory('0')
             ->setDescription('Description de la figure numéro 5')
 
             ->setAuthor($this->getReference(UserFixture::USER1))
@@ -94,6 +99,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks6->setName('tail grab')
             ->setContent('Hello Cette 6iem figure est en effet trés dificille...')
             ->setDifficulty('2')
+            ->setCategory('1')
             ->setDescription('Description de la figure numéro 6')
 
             ->setAuthor($this->getReference(UserFixture::USER1))
@@ -106,6 +112,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks7->setName('nose grab')
             ->setContent('Hello Cette 7iem figure est en effet trés dificille...')
             ->setDifficulty('2')
+            ->setCategory('0')
             ->setDescription('Description de la figure numéro 7')
 
             ->setAuthor($this->getReference(UserFixture::USER1))
@@ -118,6 +125,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks8->setName('japan air')
             ->setContent('Hello Cette 8iem figure est en effet trés dificille...')
             ->setDifficulty('1')
+            ->setCategory('2')
             ->setDescription('Description de la figure numéro 8')
 
             ->setAuthor($this->getReference(UserFixture::USER1))
@@ -128,7 +136,8 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks9 = new Tricks();
         $tricks9->setName('seat belt')
             ->setContent('Hello Cette 9iem figure est en effet trés dificille...')
-            ->setDifficulty('3')
+            ->setDifficulty('0')
+            ->setCategory('1')
             ->setDescription('Description de la figure numéro 9')
 
             ->setAuthor($this->getReference(UserFixture::USER1))
@@ -141,6 +150,7 @@ class TricksFixture extends BaseFixture implements DependentFixtureInterface
         $tricks10->setName('truck driver')
             ->setContent('Hello Cette 10iem figure est en effet trés dificille...')
             ->setDifficulty('1')
+            ->setCategory('0')
             ->setDescription('Description de la figure numéro 10')
 
             ->setAuthor($this->getReference(UserFixture::USER1))

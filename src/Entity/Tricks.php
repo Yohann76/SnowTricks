@@ -21,6 +21,12 @@ class Tricks
         1 => 'Modéré',
         2 => 'Difficile'
     ];
+
+    const Category = [
+        0 => 'Flips',
+        1 => 'Slides',
+        2 => 'Sauts'
+    ];
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -45,6 +51,11 @@ class Tricks
     private $difficulty;
 
 
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\Range(min=0,max=3)
+     */
+    private $category;
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -124,6 +135,27 @@ class Tricks
         return $this;
     }
 
+    public function getDifficultyType() :string
+    {
+        return self::Difficulty[$this->difficulty] ;
+    }
+
+    public function getCategoryType() :string
+    {
+        return self::Category[$this->category] ;
+    }
+
+    public function getCategory(): ?int
+    {
+        return $this->category;
+    }
+
+    public function setCategory(int $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
 
     public function getPublishedAt(): ?\DateTimeInterface
     {
