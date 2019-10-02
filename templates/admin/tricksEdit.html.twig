@@ -51,7 +51,7 @@
         {% endif %}
 
         <div class="col-xs3">
-            <ul class="media"
+            <ul id="media"
                 data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}"
                 data-value="{{ form.media|length }}">
             </ul>
@@ -121,7 +121,7 @@
         jQuery(document).ready(function() {
 
             // media
-            $collectionHolder = $('ul.media');
+            $collectionHolder = $('#media');
             $collectionHolder.append($newLinkLi);
             $collectionHolder.data('index', $collectionHolder.find(':input').length);
             $addMediaButton.on('click', function(e) {

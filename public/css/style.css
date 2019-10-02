@@ -59,6 +59,12 @@ body {
     margin: 1%;
 }
 
+ul#media li {
+    list-style-type: none;
+    width: 100%;
+}
+
+/* Embed */
 .add_embed_link {
     color : #fff ;
     background-color: #007bff;
@@ -66,12 +72,6 @@ body {
     width: 100%;
     height: 40px ;
     margin: 1%;
-}
-
-ul.media li {
-    list-style-type: none;
-    display: inline;
-    width: 100%;
 }
 
 ul#embed li {
@@ -98,9 +98,19 @@ ul {
     margin-left: 15px ;
 }
 
+
+/* FileType Form */
+
 .custom-file-label::after {
     color : #fff ;
     background-color: #007bff;
+}
+
+.custom-file-input{
+    opacity: 1;
+}
+input #add_tricks_media_1_file {
+    opacity: 1;
 }
 
 #modal {
@@ -121,6 +131,3 @@ button#loadMoreComment.btn.btn-primary {
     margin-top: 5% ;
     margin-bottom: 5% ;
 }
-
-
-
