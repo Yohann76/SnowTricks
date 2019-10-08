@@ -12,19 +12,32 @@
     <h1>Les Tricks  </h1>
 </div>
 
-    <!-- Pagination  -->
     <div class="row" id="trickList">
         <div class="card-deck">
             {% for tricks in tricks %}
                 <div class="col-sm-3">
                     <div class="card">
-                        <!-- image a la une -->
-                        {% if tricks.media[0].path is defined and tricks.media[0].text != "Embed"  %}
-                            <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
-                        {% else %}
-                            <!-- image par defaut -->
-                            <img class="card-img-top" src="/uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
-                        {% endif %}
+                        <!-- image a la une  -->
+                            {% if  tricks.media[0].thumbnail == true %}
+                                <!-- image a la une  -->
+                                <img class="card-img-top" src="{{ asset('uploads/'~tricks.media[0].path) }}" alt="{{tricks.media[0].text}}"  />
+                                dump( {{ tricks.media[0].thumbnail  }} image a la une )
+                                {{ dump(  tricks.media[0] ) }}
+                                {{ dump(  tricks.media|length -1 ) }}
+
+                            {% elseif tricks.media[0].path is defined and tricks.media[0].text != "Embed"  %}
+                                <!-- first image du tricks -->
+                                <img class="card-img-top" src="{{ asset('uploads/'~tricks.media[0].path) }}" alt="{{tricks.media[0].text }}"  />
+                                 dump( image du tricks )
+                                {{ dump(  tricks.media[0] ) }}
+
+                            {% else %}
+                                <!-- image par defaut -->
+                                <img class="card-img-top" src="uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
+                                dump( image par default )
+                            {% endif %}
+
+                        <!-- fin image a la une -->
 
                         <div class="card-body">
                             <h3 class="card-title">
@@ -39,12 +52,10 @@
                                     <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </h3>
-
                                 {% endif %}
                             <!-- End User Connect -->
                             <p class="card-text">Par : {{ tricks.author.FirstName }}</p>
                             <p class="card-text"><small class="text-muted">Mis a jour le {{ tricks.publishedAt ? tricks.publishedAt|date('Y-m-d') : 'unpublished' }}  </small></p>
-
                         </div>
                     </div>
                 </div>

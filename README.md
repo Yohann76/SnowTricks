@@ -2,18 +2,35 @@
 
 Welcome to Symfony SnowTricks by Yohann Durand !
 
-
 This project is a student project for openclassrooms,
 This website is a open-source blog/SnowTricks with a Symfony architecture.
 The website have a administration zone where you can manage a Tricks.
 
-For use this project...
+<a href="https://codeclimate.com/github/Yohann76/SnowTricks/maintainability"><img src="https://api.codeclimate.com/v1/badges/8bd6079c9cf3a62a6c86/maintainability" /></a>
 
-1. 
-2.
-3. 
-4. 
-5. Make "composer install" in the terminal to download the librairy used
+### For use this project...
+
+##### install dependence
+```
+Composer install
+```
+##### Create database
+```
+php bin/console doctrine:database:create
+```
+##### database migration
+```
+php bin/console make:migration
+```
+##### create shemas databse
+```
+php bin/console doctrine:schema:create
+```
+##### load fixtures
+```
+php bin/console doctrine:fixture:load
+```
+
 
 This website is available in "" 
 

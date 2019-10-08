@@ -25,10 +25,14 @@
                     <div class="col-sm">
                         <div class="img-delete">
                             <div class="row">
-                                <img class="img-fluid" src="/uploads/{{ media.path }}" alt="/uploads/{{ media.text }}" width="23%;"><br/>
+                                <img src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}"  />
                             </div>
                             <div class="row">
-                                <a data-toggle="modal" href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette image</a>
+                                <a data-toggle="modal" class="btn btn-danger"
+                                   href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette image</a>
+
+                                <a href="{{path('select_thumbnail', { id: media.id, trick: tricks.id}) }}"
+                                   class="btn btn-primary">Définir comme image à la une </a>
                             </div>
                         </div>
                     </div>
@@ -55,6 +59,8 @@
                 data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}"
                 data-value="{{ form.media|length }}">
             </ul>
+
+
         </div>
 
         <div class="col-xs3">
@@ -105,6 +111,7 @@
 
 
     <script>
+        // Script for prototype
         //media
         var $collectionHolder;
         var $addMediaButton = $('<button type="button" class="add_media_link">Ajouter une image</button>');
@@ -158,10 +165,23 @@
             var $newFormLi1 = $('<li></li>').append(newForm1);
             $newLinkLi1.before($newFormLi1);
         }
+    </script>
 
 
+    <script>
+        // thumbnail Script
+        $(document).ready(function(){
 
+            $('#media').click(function() {
+                setTimeout(function() {
 
+                    $('.form-check-input').click(function(){  // Selection
+                        $('.form-check-input').prop('checked', false); // selection
+                        $(this).prop('checked', true);
+                    });
+                }, 400);
+            });
+        });
     </script>
 
 {% endblock %}

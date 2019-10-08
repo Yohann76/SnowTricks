@@ -105,9 +105,22 @@
             $newLinkLi1.before($newFormLi1);
         }
 
+    </script>
 
+    <script>
+        // thumbnail Script
+        $(document).ready(function(){
 
+            $('#media').click(function() {
+                setTimeout(function() {
 
+                    $('.form-check-input').click(function(){  // Selection
+                        $('.form-check-input').prop('checked', false); // selection
+                        $(this).prop('checked', true);
+                    });
+                }, 400);
+            });
+        });
     </script>
 
 

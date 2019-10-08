@@ -6,8 +6,9 @@ use App\Entity\Media;
 use App\Entity\Tricks;	
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;	
 use Symfony\Component\Form\AbstractType;	
-use Symfony\Component\Form\Extension\Core\Type\FileType;	
-use Symfony\Component\Form\Extension\Core\Type\TextType;	
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;	
 use Symfony\Component\OptionsResolver\OptionsResolver;	
 use Symfony\Component\Form\FormTypeInterface;	
@@ -25,7 +26,12 @@ class MediaType extends AbstractType
             ->add('text', TextType::class, [	
                 'label' => 'Ajouter un texte',	
                 'required'   => true,	
-            ])	
+            ])
+            ->add('thumbnail', RadioType::class, [
+                'label' => 'Définir comme image à la une ? ',
+                'required'   => false,
+                'by_reference' => false,
+            ])
             ;	
     }	
     public function configureOptions(OptionsResolver $resolver)	
