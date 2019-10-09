@@ -6,7 +6,6 @@ use App\Entity\Tricks;
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Media;
-
 use App\DataFixtures\UserFixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -15,151 +14,78 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class TricksFixture extends BaseFixture implements DependentFixtureInterface
 {
+    public $trick = 'trick';
+    public $admin = 'User1';
+    public $member = 'User5';
+
+    private $passwordEncoder;
+
+    private static $name = [
+        'Front Flip',
+        'Back Flip',
+        'Flip',
+        '630 Back Flip',
+        'Nose Grab',
+        'Seat Belt',
+        'Truck Driver',
+        'Mute',
+        'Sad Flip',
+        'Style Week',
+        'Mac Twist',
+        'Hakon Flip',
+        'Nose Slide',
+        'Tail Slide',
+        'Indie Slide',
+        'Seat Grab',
+        'Grab Line',
+        'Old School Flip',
+        'Japan Air',
+        'Rocket Air ',
+    ];
+
+    private static $description = [
+        'Its a easy tricks Snow, with that, you can make other tricks, its a basical technique' ,
+        'it\'s an imposing figure and extremely easy to do, you can impress your friends with it. You will learn this figure in about a week',
+        'The following figure is known by all beginners, it\'s a great classic snowboarding, it\'s about doing small jumps repeated. This figure must be acquired before attempting other harder figures.',
+        'This complex figure is without doubt one of the most impressive. It is very difficult to learn and generates a lot of applause every time it is done in public. It will take you long hours to learn it.',
+        'Good bye, hello difficulty, this figure is complicated but worth the detour. This is the first figure to learn after the easy series',
+        'The following figure is a beginner figure. It allows all new to make the hand. Be welcome and try snowboarding with this figure.',
+        'Les figures de snowboard sont toutes compliquées, mais celle-ci ne devrait pas vous posez trop de probleme. Même si vous débutez dans cette discipline.',
+        'Try this charming figure only in the springboard more than 40 ° inclination from the ground, risk of falling with this figure.',
+    ];
 
 
-    public const TRICKS1 = 'tricks1';
-    public const TRICKS2 = 'tricks2';
-    public const TRICKS3 = 'tricks3';
-    public const TRICKS4 = 'tricks4';
-    public const TRICKS5 = 'tricks5';
-    public const TRICKS6 = 'tricks6';
-    public const TRICKS7 = 'tricks7';
-    public const TRICKS8 = 'tricks8';
-    public const TRICKS9 = 'tricks9';
-    public const TRICKS10 = 'tricks10';
+    private static $difficulty = [
+        '0',
+        '1',
+        '2',
+    ];
 
+    private static $category = [
+        '0',
+        '1',
+        '2',
+    ];
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
 
     protected function loadData(ObjectManager $manager)
     {
-        $tricks1 = new Tricks();
-        $tricks1->setName('mute')
-            ->setContent('Contenu de la nouvelle figure')
-            ->setDifficulty('1')
-            ->setCategory('0')
-            ->setDescription('Description de la figure numéro 1 ')
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks1',$tricks1);
-        $manager->persist($tricks1);
-
-
-
-        $tricks2 = new Tricks();
-        $tricks2->setName('sad')
-            ->setContent('Hello Cette 2iem figure est en effet trés dificille...')
-            ->setDifficulty('2')
-            ->setCategory('1')
-            ->setDescription('Description de la figure numéro 2')
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks2',$tricks2);
-        $manager->persist($tricks2);
-
-
-        $tricks3 = new Tricks();
-        $tricks3->setName('style week')
-            ->setContent('Hello Cette 3iem figure est en effet trés dificille...')
-            ->setDifficulty('2')
-            ->setCategory('2')
-            ->setDescription('Description de la figure numéro 3')
-
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks3',$tricks3);
-        $manager->persist($tricks3);
-
-
-        $tricks4 = new Tricks();
-        $tricks4->setName('indy')
-            ->setContent('Hello Cette 4iem figure est en effet trés dificille...')
-            ->setDifficulty('2')
-            ->setCategory('2')
-            ->setDescription('Description de la figure numéro 4')
-
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks4',$tricks4);
-        $manager->persist($tricks4);
-
-
-        $tricks5 = new Tricks();
-        $tricks5->setName('stalefish')
-            ->setContent('Hello Cette 5iem figure est en effet trés dificille...')
-            ->setDifficulty('2')
-            ->setCategory('0')
-            ->setDescription('Description de la figure numéro 5')
-
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks5',$tricks5);
-        $manager->persist($tricks5);
-
-
-        $tricks6 = new Tricks();
-        $tricks6->setName('tail grab')
-            ->setContent('Hello Cette 6iem figure est en effet trés dificille...')
-            ->setDifficulty('2')
-            ->setCategory('1')
-            ->setDescription('Description de la figure numéro 6')
-
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks6',$tricks6);
-        $manager->persist($tricks6);
-
-
-        $tricks7 = new Tricks();
-        $tricks7->setName('nose grab')
-            ->setContent('Hello Cette 7iem figure est en effet trés dificille...')
-            ->setDifficulty('2')
-            ->setCategory('0')
-            ->setDescription('Description de la figure numéro 7')
-
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks7',$tricks7);
-        $manager->persist($tricks7);
-
-
-        $tricks8 = new Tricks();
-        $tricks8->setName('japan air')
-            ->setContent('Hello Cette 8iem figure est en effet trés dificille...')
-            ->setDifficulty('1')
-            ->setCategory('2')
-            ->setDescription('Description de la figure numéro 8')
-
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks8',$tricks8);
-        $manager->persist($tricks8);
-
-        $tricks9 = new Tricks();
-        $tricks9->setName('seat belt')
-            ->setContent('Hello Cette 9iem figure est en effet trés dificille...')
-            ->setDifficulty('0')
-            ->setCategory('1')
-            ->setDescription('Description de la figure numéro 9')
-
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks9',$tricks9);
-        $manager->persist($tricks9);
-
-
-        $tricks10 = new Tricks();
-        $tricks10->setName('truck driver')
-            ->setContent('Hello Cette 10iem figure est en effet trés dificille...')
-            ->setDifficulty('1')
-            ->setCategory('0')
-            ->setDescription('Description de la figure numéro 10')
-
-            ->setAuthor($this->getReference(UserFixture::USER1))
-        ;
-        $this->addReference('tricks10',$tricks10);
-        $manager->persist($tricks10);
-
-
-
+        for ($i = 1; $i <= 27; $i++) {
+            $trick = new Tricks();
+            $trick->setName($this->faker->randomElement(self::$name))
+                ->setDescription($this->faker->randomElement(self::$description))
+                ->setContent($this->faker->randomElement(self::$description))
+                ->setAuthor($this->getReference(UserFixture::USER1))
+                ->setCategory($this->faker->randomElement(self::$category))
+                ->setDifficulty($this->faker->randomElement(self::$difficulty))
+            ;
+            $this->addReference('trick'.$i ,$trick);
+            $manager->persist($trick);
+        }
         $manager->flush();
     }
 
