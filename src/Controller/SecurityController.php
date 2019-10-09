@@ -114,8 +114,8 @@ class SecurityController extends AbstractController
             $mailtarget =  $form->get('Email')->getData();  // avoir l'email de l'utilisateur Formulaire //
 
             //  SSL
-          //  $https['ssl']['verify_peer'] = FALSE;
-          //  $https['ssl']['verify_peer_name'] = FALSE;
+            //  $https['ssl']['verify_peer'] = FALSE;
+            //  $https['ssl']['verify_peer_name'] = FALSE;
 
             $message = (new \Swift_Message('SnowTricks Message'))
                 ->setFrom('yohanndurand76@gmail.com')
@@ -160,7 +160,7 @@ class SecurityController extends AbstractController
                     'success',
                     "Mot de passe modifié avec succès !"
                 );
-                return $this->redirectToRoute('login');
+                return $this->redirectToRoute('app_login');
             }
             else
             {
