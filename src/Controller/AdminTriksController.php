@@ -176,4 +176,29 @@ class AdminTriksController extends AbstractController
 
       return $this->redirectToRoute('admin_tricks_index');
     }
+
+
+
+
+    /**
+     * Select thumbnail
+     * @Route("select_thumbnail/{id}/{trick}",name="select_thumbnail")
+     */
+    public function select_thumbnail($id,$trick)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $TrickRepository = $this->getDoctrine()->getRepository(Tricks::class);
+        $MediaRepository = $this->getDoctrine()->getRepository(Media::class);
+        $tricks_id = $TrickRepository->findOneBy(array('id' => $trick));
+        $medias = $MediaRepository->findBy(array('tricks' => $tricks_id));
+        foreach($medias as $media) {
+            $media->setThumbnail(false);
+            $entityManager->persist($media);
+        }
+        $media = $MediaRepository->findOneBy(array('id' => $id));
+        $media->setThumbnail(true);
+        $entityManager->persist($media);
+        $entityManager->flush();
+        return $this->redirect($_SERVER['HTTP_REFERER']);
+    }
 }

@@ -48,6 +48,11 @@ class Media
     private $file;
 
     /**
+     * @ORM\Column(type="boolean" , options={"default":false} )
+     */
+    private $thumbnail;
+
+    /**
      * @return mixed
      */
 
@@ -103,6 +108,18 @@ class Media
     public function setTricks(?Tricks $tricks): self
     {
         $this->tricks = $tricks;
+
+        return $this;
+    }
+
+    public function getThumbnail(): ?bool
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(bool $thumbnail): self
+    {
+        $this->thumbnail = $thumbnail;
 
         return $this;
     }

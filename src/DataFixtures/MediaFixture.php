@@ -21,6 +21,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media1->setPath('Media1Tricks1.jpg')
             ->setText('Image de flip')
             ->setTricks($this->getReference(TricksFixture::TRICKS1))
+            ->setThumbnail(False);
         ;
         $manager->persist($media1);
 
@@ -28,6 +29,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media2->setPath('Media2Tricks2.jpg')
             ->setText('Image de figure rotative')
             ->setTricks($this->getReference(TricksFixture::TRICKS2))
+            ->setThumbnail(False);
         ;
         $manager->persist($media2);
 
@@ -35,6 +37,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media3->setPath('Media3Tricks3.jpg')
             ->setText('Image de figure rotative')
             ->setTricks($this->getReference(TricksFixture::TRICKS3))
+            ->setThumbnail(False);
         ;
         $manager->persist($media3);
 
@@ -43,6 +46,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media4->setPath('Media4Tricks4.jpg')
             ->setText('Image de figure rotative')
             ->setTricks($this->getReference(TricksFixture::TRICKS4))
+            ->setThumbnail(False);
         ;
         $manager->persist($media4);
 
@@ -51,6 +55,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media5->setPath('Media5Tricks5.jpg')
             ->setText('Image de figure rotative')
             ->setTricks($this->getReference(TricksFixture::TRICKS5))
+            ->setThumbnail(False);
         ;
         $manager->persist($media5);
 
@@ -59,6 +64,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media6->setPath('Media6Tricks6.jpg')
             ->setText('Image de flip')
             ->setTricks($this->getReference(TricksFixture::TRICKS6))
+            ->setThumbnail(False);
         ;
         $manager->persist($media6);
 
@@ -66,6 +72,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media7->setPath('Media7Tricks7.jpg')
             ->setText('Image de figure rotative')
             ->setTricks($this->getReference(TricksFixture::TRICKS7))
+            ->setThumbnail(False);
         ;
         $manager->persist($media7);
 
@@ -73,6 +80,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media8->setPath('Media8Tricks8.jpg')
             ->setText('Image de figure rotative')
             ->setTricks($this->getReference(TricksFixture::TRICKS8))
+            ->setThumbnail(False);
         ;
         $manager->persist($media8);
 
@@ -81,6 +89,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media9->setPath('Media9Tricks9.jpg')
             ->setText('Image de figure rotative')
             ->setTricks($this->getReference(TricksFixture::TRICKS9))
+            ->setThumbnail(False);
         ;
         $manager->persist($media9);
 
@@ -88,6 +97,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
         $media10->setPath('Media10Tricks10.jpg')
             ->setText('Image de figure rotative')
             ->setTricks($this->getReference(TricksFixture::TRICKS10))
+            ->setThumbnail(False);
         ;
         $manager->persist($media10);
 

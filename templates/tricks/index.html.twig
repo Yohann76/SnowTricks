@@ -12,19 +12,38 @@
     <h1>Les Tricks  </h1>
 </div>
 
-    <!-- Pagination  -->
     <div class="row" id="trickList">
         <div class="card-deck">
             {% for tricks in tricks %}
                 <div class="col-sm-3">
                     <div class="card">
-                        <!-- image a la une -->
-                        {% if tricks.media[0].path is defined and tricks.media[0].text != "Embed"  %}
-                            <img class="card-img-top" src="/uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
+                        <!-- New image a la une -->
+                        {% if tricks.media[0] is defined %}
+
+                            {% set number = 0 %}
+
+                            {% for media in tricks.media %}
+
+                                {% if media.thumbnail == true %}
+                                    {% set number = 1 %}
+                                    <img class="card-img-top" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}">
+                                {% endif %}
+
+                                {% if not media.thumbnail == false and number == 0 %}
+                                    <img class="card-img-top" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}">
+                                {% endif %}
+
+                            {% endfor %}
+
                         {% else %}
-                            <!-- image par defaut -->
-                            <img class="card-img-top" src="/uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
+                            <img class="card-img-top" src="uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
                         {% endif %}
+
+
+                        <!-- image a la une  -->
+
+
+                        <!-- fin image a la une -->
 
                         <div class="card-body">
                             <h3 class="card-title">
@@ -39,12 +58,10 @@
                                     <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                 </form>
                             </h3>
-
                                 {% endif %}
                             <!-- End User Connect -->
                             <p class="card-text">Par : {{ tricks.author.FirstName }}</p>
                             <p class="card-text"><small class="text-muted">Mis a jour le {{ tricks.publishedAt ? tricks.publishedAt|date('Y-m-d') : 'unpublished' }}  </small></p>
-
                         </div>
                     </div>
                 </div>

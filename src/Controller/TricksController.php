@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Media;
 use App\Form\CommentType;
+use App\Repository\MediaRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\TricksRepository;
 use App\Repository\CommentRepository;
@@ -42,13 +43,16 @@ class TricksController extends AbstractController
      * Display the home page
      * @Route("/", name="app_homepage")
      */
-    public function homepage(TricksRepository $repository)
+    public function homepage(TricksRepository $repository,MediaRepository $mediaRepository)
     {
         // Get 8 tricks from position 0
         $tricks = $repository->findBy([], ['publishedAt' => 'DESC'], 8, 0);
+        $media = $mediaRepository->findAll();
 
         return $this->render('tricks/index.html.twig', [
-            'tricks' => $tricks
+            'tricks' => $tricks,
+            'media' => $media,
+
         ]);
     }
 
@@ -60,6 +64,7 @@ class TricksController extends AbstractController
     {
         // Get 15 tricks from the start position
         $tricks = $repository->findBy([], ['publishedAt' => 'DESC'], 8, $start);
+
         return $this->render('tricks/loadMoreTricks.html.twig', [
             'tricks' => $tricks
         ]);
