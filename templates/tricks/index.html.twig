@@ -17,25 +17,31 @@
             {% for tricks in tricks %}
                 <div class="col-sm-3">
                     <div class="card">
+                        <!-- New image a la une -->
+                        {% if tricks.media[0] is defined %}
+
+                            {% set number = 0 %}
+
+                            {% for media in tricks.media %}
+
+                                {% if media.thumbnail == true %}
+                                    {% set number = 1 %}
+                                    <img class="card-img-top" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}">
+                                {% endif %}
+
+                                {% if not media.thumbnail == false and number == 0 %}
+                                    <img class="card-img-top" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}">
+                                {% endif %}
+
+                            {% endfor %}
+
+                        {% else %}
+                            <img class="card-img-top" src="uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
+                        {% endif %}
+
+
                         <!-- image a la une  -->
-                            {% if  tricks.media[0].thumbnail == true %}
-                                <!-- image a la une  -->
-                                <img class="card-img-top" src="{{ asset('uploads/'~tricks.media[0].path) }}" alt="{{tricks.media[0].text}}"  />
-                                dump( {{ tricks.media[0].thumbnail  }} image a la une )
-                                {{ dump(  tricks.media[0] ) }}
-                                {{ dump(  tricks.media|length -1 ) }}
 
-                            {% elseif tricks.media[0].path is defined and tricks.media[0].text != "Embed"  %}
-                                <!-- first image du tricks -->
-                                <img class="card-img-top" src="{{ asset('uploads/'~tricks.media[0].path) }}" alt="{{tricks.media[0].text }}"  />
-                                 dump( image du tricks )
-                                {{ dump(  tricks.media[0] ) }}
-
-                            {% else %}
-                                <!-- image par defaut -->
-                                <img class="card-img-top" src="uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
-                                dump( image par default )
-                            {% endif %}
 
                         <!-- fin image a la une -->
 
