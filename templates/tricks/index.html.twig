@@ -17,7 +17,7 @@
             {% for tricks in tricks %}
                 <div class="col-sm-3">
                     <div class="card">
-                        <!-- New image a la une -->
+                        <!-- Thumbnail  -->
                         {% if tricks.media[0] is defined %}
 
                             {% set number = 0 %}
@@ -38,12 +38,6 @@
                         {% else %}
                             <img class="card-img-top" src="uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
                         {% endif %}
-
-
-                        <!-- image a la une  -->
-
-
-                        <!-- fin image a la une -->
 
                         <div class="card-body">
                             <h3 class="card-title">
@@ -69,7 +63,6 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-12 text-center">
             <button id="loadMoreTricks" class="btn btn-primary">Voir plus de tricks</button>
@@ -79,8 +72,6 @@
     <!-- Up on page -->
     <a href="#"><i id="arrow-up" class="fas fa-arrow-up fa-3x float-right"></i></a></div>
 {% endblock %}
-
-
 
 {% block javascripts %}
     {{ parent() }}
