@@ -3,7 +3,6 @@
 namespace App\tests;
 
 
-use App\Entity\Comment;
 use App\Entity\Media;
 use App\Entity\Tricks;
 use App\Entity\User;
@@ -35,7 +34,4 @@ class tricksTest extends TestCase
         $this->tricks->setDifficulty(0);
         $this->assertEquals(0, $this->tricks->getDifficulty() );
     }
-
-
-
 }

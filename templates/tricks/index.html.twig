@@ -12,7 +12,7 @@
     <h1>Les Tricks  </h1>
 </div>
 
-    <div class="row" id="trickList">
+    <div class="tricks" id="trickList">
         <div class="card-deck">
             {% for tricks in tricks %}
                 <div class="col-sm-3">
@@ -63,14 +63,14 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="moreTricks">
         <div class="col-12 text-center">
             <button id="loadMoreTricks" class="btn btn-primary">Voir plus de tricks</button>
         </div>
     </div>
 
     <!-- Up on page -->
-    <a href="#"><i id="arrow-up" class="fas fa-arrow-up fa-3x float-right"></i></a></div>
+    <a href="#"><i id="arrow-up" class="fas fa-arrow-up fa-3x float-right"></i></a>
 {% endblock %}
 
 {% block javascripts %}

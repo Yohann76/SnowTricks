@@ -3,10 +3,25 @@
         <div class="col-sm-3">
             <div class="card">
                 <!-- image a la une -->
-                {% if tricks.media[0].path is defined and tricks.media[0].text != "Embed"  %}
-                    <img class="card-img-top" src="uploads/{{ tricks.media[0].path}}" alt="{{tricks.media[0].text }}" >
+                <!-- Thumbnail  -->
+                {% if tricks.media[0] is defined %}
+
+                    {% set number = 0 %}
+
+                    {% for media in tricks.media %}
+
+                        {% if media.thumbnail == true %}
+                            {% set number = 1 %}
+                            <img class="card-img-top" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}">
+                        {% endif %}
+
+                        {% if not media.thumbnail == false and number == 0 %}
+                            <img class="card-img-top" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}">
+                        {% endif %}
+
+                    {% endfor %}
+
                 {% else %}
-                    <!-- image par defaut -->
                     <img class="card-img-top" src="uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
                 {% endif %}
 

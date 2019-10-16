@@ -86,8 +86,6 @@ class Media
         return $this;
     }
 
-
-
     public function getText(): ?string
     {
         return $this->text;

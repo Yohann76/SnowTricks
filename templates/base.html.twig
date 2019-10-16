@@ -40,12 +40,15 @@
           </li>
 
           {% if is_granted('ROLE_USER') %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-                </li>
-                <li class="nav-item">
+              <li class="nav-item">
                   <a class="nav-link" href="{{ path('admin_tricks_index')}}"> Gestion Tricks</a>
-                </li>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_account')}}"> Profil</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+              </li>
 
           {% else %}
             <li class="nav-item">

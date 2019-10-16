@@ -23,7 +23,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class AccountController extends BaseController
 {
     /**
-     * @Route("/account", name="app_account")
+     * @Route("public/account", name="app_account")
      */
     public function index(LoggerInterface $logger,Request $request,UserRepository $userRepo, FileUploader $fileUploader,EntityManagerInterface $entityManager)
     {
@@ -54,12 +54,11 @@ class AccountController extends BaseController
                 );
             }
             $user->setPicture($newFilename);
+            return $this->redirectToRoute('app_account');
         }
 
         $entityManager->persist($user);
         $entityManager->flush();
-
-        return $this->redirectToRoute('app_account');
 
         return $this->render('account/index.html.twig', [
             'PictureUserType' => $form->createView(),
