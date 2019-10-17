@@ -107,24 +107,24 @@ class AdminTriksController extends AbstractController
         $form = $this->createForm(TricksType::class, $tricks);
         $form->handleRequest($request);
 
-        $medias = $tricks->getMedia(); // just View
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $trick = $form->getData();
             $trick->setAuthor($this->getUser());
 
-            foreach ($medias as $media) {
+            foreach ($tricks->getMedia() as $media) {
                 if(!$media->getId()) {
                     $fileName = $fileUploader->upload($media->getFile());
                     $media->setTricks($trick);
                     $media->setPath($fileName);
                     $media->setText($media->getText());
-                    $entityManager->persist($media); // new
-                    $entityManager->flush(); // new
+                    $entityManager->persist($media);
                 }
                 if($media->getThumbnail() == true){
-                    $this->select_thumbnail($media->getId(),$tricks);
+                    $this->select_thumbnailForEdit($media->getId(),$tricks);
+                }
+                else{
+                    $media->setThumbnail(false);
                 }
             }
             foreach ($form->get('Embed')->getData() as  $embed) {
@@ -139,15 +139,66 @@ class AdminTriksController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('succes', 'Modification réussi !');
-
             return $this->redirectToRoute('admin_tricks_index');
         }
+
+        $medias = $tricks->getMedia();
 
         return $this->render('admin/tricksEdit.html.twig', [
             'tricks' => $tricks,
             'medias' => $medias,
             'form' => $form->createView()
         ]);
+    }
+
+    public function select_thumbnailForEdit($id,$trick)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $TrickRepository = $this->getDoctrine()->getRepository(Tricks::class);
+        $MediaRepository = $this->getDoctrine()->getRepository(Media::class);
+
+        $tricks_id = $TrickRepository->findOneBy(array('id' => $trick));
+        $medias = $MediaRepository->findBy(array('tricks' => $tricks_id));
+
+        foreach($medias as $media) {
+            $media->setThumbnail(false);
+            $entityManager->persist($media);
+        }
+        $media = $MediaRepository->findOneBy(array('id' => $id));
+
+        if($media) {
+            $media->setThumbnail(true);
+            $entityManager->persist($media);
+            $entityManager->flush();
+        }
+        return $this->redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    /**
+     * Select thumbnail
+     * @Route("select_thumbnail/{id}/{tricks}",name="select_thumbnail")
+     */
+    public function select_thumbnail($id,$tricks)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $TrickRepository = $this->getDoctrine()->getRepository(Tricks::class);
+        $MediaRepository = $this->getDoctrine()->getRepository(Media::class);
+
+        $tricks_id = $TrickRepository->findOneBy(array('id' => $tricks));
+        $medias = $MediaRepository->findBy(array('tricks' => $tricks_id));
+
+        foreach($medias as $media) {
+            $media->setThumbnail(false);
+            $entityManager->persist($media);
+        }
+
+        $media = $MediaRepository->findOneBy(array('id' => $id));
+        $media->setThumbnail(true);
+
+        $entityManager->persist($media);
+        $entityManager->flush();
+
+         return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 
     /**
@@ -181,31 +232,6 @@ class AdminTriksController extends AbstractController
         }
         $this->addFlash('succes','Tricks Supprimé');
 
-      return $this->redirectToRoute('admin_tricks_index');
-    }
-
-    /**
-     * Select thumbnail
-     * @Route("select_thumbnail/{id}/{tricks}",name="select_thumbnail")
-     */
-    public function select_thumbnail($id,$tricks)
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $TrickRepository = $this->getDoctrine()->getRepository(Tricks::class);
-        $MediaRepository = $this->getDoctrine()->getRepository(Media::class);
-
-        $tricks_id = $TrickRepository->findOneBy(array('id' => $tricks));
-        $medias = $MediaRepository->findBy(array('tricks' => $tricks_id));
-
-        foreach($medias as $media) {
-            $media->setThumbnail(false);
-            $entityManager->persist($media);
-        }
-        $media = $MediaRepository->findOneBy(array('id' => $id));
-        $media->setThumbnail(true);
-        $entityManager->persist($media);
-        $entityManager->flush();
-
-        return $this->redirect($_SERVER['HTTP_REFERER']);
+        return $this->redirectToRoute('admin_tricks_index');
     }
 }
