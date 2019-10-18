@@ -103,15 +103,15 @@ class SecurityController extends AbstractController
         $form = $this->createForm(resetForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            // Generer un token et associer le token a ce compte
+            // Generate token
             $token = bin2hex(random_bytes(13));
             $entityManager = $this->getDoctrine()->getManager();
             $repository = $this->getDoctrine()->getRepository(User::class);
-            $user = $repository->findOneBy(array('email' => $form->get('Email')->getData())); // trouvé l'adresse mail POST du FORM
+            $user = $repository->findOneBy(array('email' => $form->get('Email')->getData()));
             $user->setToken($token);
             $entityManager->persist($user);
             $entityManager->flush();
-            $mailtarget =  $form->get('Email')->getData();  // avoir l'email de l'utilisateur Formulaire //
+            $mailtarget =  $form->get('Email')->getData();
 
             //  SSL
             //  $https['ssl']['verify_peer'] = FALSE;

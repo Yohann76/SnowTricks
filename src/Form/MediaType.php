@@ -28,7 +28,7 @@ class MediaType extends AbstractType
                 'required'   => true,	
             ])
             ->add('thumbnail', RadioType::class, [
-                'label' => 'Définir comme image à la une ? ',
+                'label' => 'Définir comme image à la une ?',
                 'required'   => false,
                 'by_reference' => false,
             ])

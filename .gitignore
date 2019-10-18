@@ -8,6 +8,7 @@
 /var/
 /vendor/
 .idea/
+/public/data
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

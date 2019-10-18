@@ -18,20 +18,19 @@
         <hr>
         <!-- for delete image-->
         <h1>Image pour ce tricks</h1><br/>
-
         {% if tricks.media is defined %}
             {% for media in medias %}
                 {%  if media.text != "Embed" %}
                     <div class="col-sm">
                         <div class="img-delete">
                             <div class="row">
-                                <img src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}"  />
+                                <img class="img-type" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}"/>
                             </div>
                             <div class="row">
                                 <a data-toggle="modal" class="btn btn-danger"
                                    href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette image</a>
 
-                                <a href="{{path('select_thumbnail', { id: media.id, trick: tricks.id}) }}"
+                                <a href="{{path('select_thumbnail', { id: media.id, tricks: tricks.id}) }}"
                                    class="btn btn-primary">Définir comme image à la une </a>
                             </div>
                         </div>
@@ -41,33 +40,33 @@
         {% endif %}
 
         <hr>
-        <!-- for delete embed -->
+        <!-- For delete embed -->
         <h1>Vidéo pour ce tricks</h1><br/>
         {% if tricks.media is defined %}
             {% for media in medias %}
                 {%  if media.text == "Embed" %}
                     <div class="delete_embed">{{ media.path|html }}</div>
                     <div class="delete_embed_link">
-                        <a data-toggle="modal" href="{{ path('image_delete',{id: media.id}) }}" >Supprimer cette Vidéo</a>
+                        <a data-toggle="modal" class="btn btn-danger" href="{{ path('image_delete',{id: media.id}) }}" >Supprimer cette Vidéo</a>
                     </div>
                 {% endif  %}
             {% endfor %}
         {% endif %}
 
-        <div class="col-xs3">
-            <ul id="media"
-                data-prototype="{{ form_widget(form.media.vars.prototype) |e ('html_attr') }}"
-                data-value="{{ form.media|length }}">
-            </ul>
+        <!-- Prototype / Collection -->
 
-
+        <!-- Media -->
+        <div class="row js-genus-scientist-wrapper data"
+             data-prototype="{{ form_widget(form.media.vars.prototype)|e('html_attr')}}"
+             data-index="{{ form.media|length }}">
+            <button type="button" class="js-genus-scientist-add">Ajouter une image</button>
         </div>
 
-        <div class="col-xs3">
-            <ul id="embed"
-                data-prototype ="{{ form_widget(form.Embed.vars.prototype)|e('html_attr') }}"
-                data-index="{{ form.Embed|length }}">
-            </ul>
+        <!-- Embed -->
+        <div class="row js-embed-scientist-wrapper data"
+                 data-prototype ="{{ form_widget(form.Embed.vars.prototype)|e('html_attr') }}"
+                 data-index="{{ form.Embed|length }}">
+            <button type="button" class="js-embed-scientist-add">Ajouter une vidéo</button>
         </div>
 
         {% do form.media.setRendered %}
@@ -75,25 +74,16 @@
         {{ form_end(form) }}
     </div>
 
-
-
-
-
-
-
-
 {% endblock %}
 
-
 {%  block javascripts %}
-
+    {{ parent() }}
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous">
     </script>
-
     <script>
-        // Boite de confirmation de suppression d'image
+        // Delete Confirm msg
         $('[data-toggle="modal"]').on( 'click', function attention() {
 
             resultat=window.confirm('Attention, vous êtes sur le point de supprimer une image du Tricks, voulez-vous continuer ?');
@@ -104,85 +94,50 @@
             {
                 return false;
             }
-
         });
-
     </script>
-
-
     <script>
-        // Script for prototype
-        //media
-        var $collectionHolder;
-        var $addMediaButton = $('<button type="button" class="add_media_link">Ajouter une image</button>');
-        var $newLinkLi = $('<li></li>').append($addMediaButton);
-        console.log($newLinkLi);
-
-        //embed
-        var $collectionHolder1;
-        var $addEmbedButton1 = $('<button type="button" class="add_embed_link">Ajouter une vidéo</button>');
-        var $newLinkLi1 = $('<li></li>').append($addEmbedButton1);
-        console.log($newLinkLi1);
-
-
+        // Prototype Script
         jQuery(document).ready(function() {
-
-            // media
-            $collectionHolder = $('#media');
-            $collectionHolder.append($newLinkLi);
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
-            $addMediaButton.on('click', function(e) {
-                addMediaForm($collectionHolder, $newLinkLi);
+            // media prototype
+            var $wrapper = $('.js-genus-scientist-wrapper');
+            $wrapper.on('click', '.js-genus-scientist-add', function(e) {
+                e.preventDefault();
+                var prototype = $wrapper.data('prototype');
+                var index = $wrapper.data('index');
+                console.log(index);
+                var newForm = prototype.replace(/__name__/g, index);
+                $wrapper.data('index', index + 1 );
+                console.log(index);
+                $(this).before(newForm);
             });
-
-            // embed
-            $collectionHolder1 = $('#embed');
-            $collectionHolder1.append($newLinkLi1);
-            $collectionHolder1.data('index', $collectionHolder1.find(':input').length);
-            $addEmbedButton1.on('click', function(e) {
-                addEmbedForm($collectionHolder1, $newLinkLi1);
-            }); // new
+            // Embed prototype
+            var $wrapperEmbed = $('.js-embed-scientist-wrapper');
+            $wrapperEmbed.on('click', '.js-embed-scientist-add', function(e) {
+                e.preventDefault();
+                var prototype = $wrapperEmbed.data('prototype');
+                var index = $wrapperEmbed.data('index');
+                console.log(index);
+                var newForm = prototype.replace(/__name__/g, index);
+                $wrapperEmbed.data('index', index + 1);
+                $(this).before(newForm);
+            });
         });
-
-        function addMediaForm($collectionHolder, $newLinkLi) {
-
-            var prototype = $collectionHolder.data('prototype');
-            var index = $collectionHolder.data('index');
-            var newForm = prototype;
-            newForm = newForm.replace(/__name__/g, index);
-            $collectionHolder.data('index', index + 1);
-            var $newFormLi = $('<li></li>').append(newForm);
-            $newLinkLi.before($newFormLi);
-        }
-
-        function addEmbedForm($collectionHolder1, $newLinkLi1) {
-
-            var prototype = $collectionHolder1.data('prototype');
-            var index = $collectionHolder1.data('index');
-            var newForm1 = prototype;
-            newForm1 = newForm1.replace(/__name__/g, index);
-            $collectionHolder1.data('index', index + 1);
-            var $newFormLi1 = $('<li></li>').append(newForm1);
-            $newLinkLi1.before($newFormLi1);
-        }
     </script>
-
     <script>
         // thumbnail Script
         $(document).ready(function(){
-
-            $('#media').click(function() {
+            $('.js-genus-scientist-add').click(function() {
                 setTimeout(function() {
                     // language=JQuery-CSS
-                    $('.form-check-input').click(function(){  // Selection
-                        $('.form-check-input').prop('checked', false); // selection
+                    $('.form-check-input').click(function(){
+                        $('.form-check-input').prop('checked', false);
                         $(this).prop('checked', true);
                     });
                 }, 400);
             });
         });
     </script>
-
 {% endblock %}
 
 
