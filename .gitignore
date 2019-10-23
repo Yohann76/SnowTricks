@@ -9,6 +9,7 @@
 /vendor/
 .idea/
 /public/data
+/ansible/hosts.ini
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
