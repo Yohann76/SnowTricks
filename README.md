@@ -18,6 +18,8 @@ This architecture proposes a reutilisable code and easy to maintain. It also pro
 ```
 git clone
 ```
+
+change your environment variables
 ##### install dependence
 ```
 Composer install
