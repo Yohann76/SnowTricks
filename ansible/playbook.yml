@@ -1,0 +1,57 @@
+---
+- name: Server Install 
+  hosts: all
+  remote_user: root 
+
+  vars:
+    symfony_root_dir: /var/www/Snowtricks
+    symfony_web_dir: "{{ symfony_root_dir }}"
+    mysql_user: root 
+    server_name: vps
+
+  tasks: 
+    - ping: ~
+
+    - name: apt-get update
+      become: true
+      apt:
+        update_cache: yes
+        
+    - name: Install Git, Vim , Htop , Zsh  
+      become: true
+      apt: name={{ item }}  update_cache=yes state=latest
+      with_items: 
+        - vim
+        - htop
+        - git 
+        - zsh
+
+    - name: Create project directory and set its permissions
+      become: true
+      file:
+        path: "{{ symfony_root_dir }}"
+        state: directory
+        recurse: yes
+
+    - name: Git clone
+      git:
+        repo: https://github.com/Yohann76/SnowTricks
+        dest: "{{ symfony_root_dir }}"
+        force: yes
+        clone: yes
+
+    - name: apt-get install composer
+      become: true
+      apt:
+        name: composer
+        state: latest
+
+  roles:
+    - nginx
+    - php
+    - mysql
+
+
+      
+      
+...

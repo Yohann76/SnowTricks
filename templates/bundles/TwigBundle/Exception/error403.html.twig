@@ -1,0 +1,13 @@
+{# templates/bundles/TwigBundle/Exception/error403.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 403{% endblock %}
+
+{% block body %}
+    <h1>accès interdit</h1>
+
+    <p>
+        accès interdit sur la page demandée !
+        veuillez entrer une page valide, <a href="{{ path('app_homepage') }}">Aller à la page home</a>.
+    </p>
+{% endblock %}

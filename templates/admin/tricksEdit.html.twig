@@ -105,10 +105,8 @@
                 e.preventDefault();
                 var prototype = $wrapper.data('prototype');
                 var index = $wrapper.data('index');
-                console.log(index);
                 var newForm = prototype.replace(/__name__/g, index);
                 $wrapper.data('index', index + 1 );
-                console.log(index);
                 $(this).before(newForm);
             });
             // Embed prototype
@@ -117,7 +115,6 @@
                 e.preventDefault();
                 var prototype = $wrapperEmbed.data('prototype');
                 var index = $wrapperEmbed.data('index');
-                console.log(index);
                 var newForm = prototype.replace(/__name__/g, index);
                 $wrapperEmbed.data('index', index + 1);
                 $(this).before(newForm);
