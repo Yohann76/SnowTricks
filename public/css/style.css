@@ -1,13 +1,11 @@
 /*
 Author : Yohann durand
+License : free
 */
-nav {
-    border: 1px darkblue solid ;
-}
+
 
 .navbar  {
     width: 100%;
-
 }
 
 .carousel-item active {
@@ -18,7 +16,6 @@ body {
     background-color:#fff;
 }
 /* Form login */
-
 .form-signin {
     width: 100%;
     max-width: 330px;
@@ -202,5 +199,10 @@ button#loadMoreTricks.btn.btn-primary {
 button#loadMoreComment.btn.btn-primary {
     margin-top: 5% ;
     margin-bottom: 5% ;
+}
+
+.container-thumbnail {
+    width: 50%;
+    margin: auto ;
 }
 

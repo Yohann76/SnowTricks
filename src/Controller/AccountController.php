@@ -27,12 +27,10 @@ class AccountController extends BaseController
      */
     public function index(LoggerInterface $logger,Request $request,UserRepository $userRepo, FileUploader $fileUploader,EntityManagerInterface $entityManager)
     {
-
         $entityManager = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $form = $this->createForm(PictureUserType::class, $user);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted()) {
             $PictureFile = $form->get('picture')->getData();

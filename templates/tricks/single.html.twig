@@ -5,11 +5,12 @@
 {% block body %}
     <div class="container">
         <h1> Nom du Trick : {{ tricks.name }} </h1> <br/>
-        <h2> Catégorie : {{ tricks.categoryType }} </h2><br/>
-        <h2> Difficulté : {{ tricks.difficultyType }} </h2> <br/>
+        <h2> <strong> Catégorie :</strong>  {{ tricks.categoryType }} </h2><br/>
+        <h2> <strong> Difficulté :</strong> {{ tricks.difficultyType }} </h2> <br/>
 
         <!-- Image a la une -->
         <!-- Thumbnail  -->
+        <div class="container-thumbnail">
         {% if tricks.media[0] is defined %}
 
             {% set number = 0 %}
@@ -18,7 +19,7 @@
 
                 {% if media.thumbnail == true %}
                     {% set number = 1 %}
-                    <img class="card-img-top" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}">
+                    <img class="card-img-top" src="{{ asset('uploads/'~media.path) }}" alt="{{ media.text }}"  >
                 {% endif %}
 
                 {% if not media.thumbnail == false and number == 0 %}
@@ -30,6 +31,7 @@
         {% else %}
             <img class="card-img-top" src="../uploads/TricksDefault.jpg" alt="SnowBoard-SnowTricks">
         {% endif %}
+        </div>
 
         <p> Contenu : {{ tricks.content }} </p>
 

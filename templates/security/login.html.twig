@@ -8,17 +8,17 @@
 {% block body %}
 
 
-<h1> Login Tricks</h1> 
 
 
   <form class="form-signin" method="post">
+      <h3>Vos informations sont confidentielles</h3>
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputEmail" class="sr-only">Email address</label>
+        <h1 class="h3 mb-3 font-weight-normal">Connectez vous ! </h1>
+        <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" value="{{ last_username}} " name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
+        <label for="inputPassword" class="sr-only">Mots de passe</label>
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
         <input type="hidden" name="_csrf_token"
@@ -30,12 +30,12 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" name="_remember_me"> Remember me
+                <input type="checkbox" name="_remember_me"> Se souvenir de moi
             </label>
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">
-            Sign in
+            je souhaite me connecter !
         </button>
     </form>
 

@@ -1,11 +1,8 @@
 {% extends 'base.html.twig' %}
 
-
 {% block stylesheets %}
-
 {{ parent() }}
 <link rel="stylesheet" href="{{ asset('css/account.css') }}">
-
 {% endblock %}
 
 
@@ -18,9 +15,9 @@
         <p> Adresse mail :  {{ app.user.email }} </p>
 
         {% if app.user.picture is defined %}
-            <img class="rounded-circle" src="/uploads/users/{{ app.user.picture }}" alt="" width="25%;">
+            <img class="rounded-circle" src="../uploads/users/{{ app.user.picture }}" alt="" width="25%;">
         {% endif %}
-
+        <br/>
             <div class="example-wrapper">
                 {{ form_start(PictureUserType) }}
                 {{ form_widget(PictureUserType) }}
