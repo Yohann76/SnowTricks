@@ -10,6 +10,7 @@
 .idea/
 /public/data
 /ansible/hosts.ini
+/ansible/templates/.env
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

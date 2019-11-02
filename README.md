@@ -44,7 +44,7 @@ php bin/console doctrine:fixture:load
 
 ##### For Ansible, create your hosts.ini and run :
 ```
-ansible-playbook ansible/playbook.yml -i ansible/hosts.ini
+ansible-playbook ansible/playbook.yml -i ansible/hosts.ini --ask-vault-pass
 ```
 ##### For Docker, create your hosts.ini and run :
 run this project with docker containers (docker-compose included in this repository )
