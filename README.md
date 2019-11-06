@@ -20,6 +20,7 @@ git clone
 ```
 
 change your environment variables
+
 ##### install dependence
 ```
 Composer install
@@ -30,23 +31,24 @@ php bin/console doctrine:database:create
 ```
 ##### database migration
 ```
-php bin/console make:migration
+
+php bin/console doctrine:migrations:migrate
 ```
-##### create shemas databse
-```
-php bin/console doctrine:schema:create
-```
+
 ##### load fixtures
 ```
 php bin/console doctrine:fixture:load
 ```
+
+
 ## Deployment
 
-##### For Ansible, create your hosts.ini and run :
+##### For Ansible, create your ansible/hosts.ini and ansible/templates/.env and run:
 ```
 ansible-playbook ansible/playbook.yml -i ansible/hosts.ini --ask-vault-pass
 ```
-##### For Docker, create your hosts.ini and run :
+
+##### For Docker run :
 run this project with docker containers (docker-compose included in this repository )
 ```
 docker-compose up -d

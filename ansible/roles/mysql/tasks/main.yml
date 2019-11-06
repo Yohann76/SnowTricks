@@ -5,7 +5,7 @@
         name: mysql-server
         state: latest
 
-# MySQL requirements
+      # MySQL requirements
     - name: Set MySQL root password before installing
       become: true
       debconf: name='mysql-server' question='mysql-server/root_password' value='{{mysql_root_password}}' vtype='password'
