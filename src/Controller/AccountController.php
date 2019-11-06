@@ -33,33 +33,29 @@ class AccountController extends BaseController
 
         if ($form->isSubmitted()) {
             $PictureFile = $form->get('picture')->getData();
-            if($PictureFile);
-            $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$PictureFile->guessExtension();
-            // Move the file to the directory where brochures are stored
-            try {
-                $PictureFile->move(
-                    $this->getParameter('PictureUser_directory'), // Spécifié dans Service.yaml
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                $this->addFlash(
-                    'info',
-                    "a problem exist with your upload "
-                );
+            if($PictureFile); {
+                $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$PictureFile->guessExtension();
+                try {
+                    $PictureFile->move(
+                        $this->getParameter('PictureUser_directory'), // In Service.yaml
+                        $newFilename
+                    );
+                }
+                catch (FileException $e) {
+                    $this->addFlash('info','Un probléme à persister');
+                }
             }
             $user->setPicture($newFilename);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $this->addFlash('info','Votre photo de profil a bien été modifier!');
             return $this->redirectToRoute('app_account');
         }
-
-        $entityManager->persist($user);
-        $entityManager->flush();
 
         return $this->render('account/index.html.twig', [
             'PictureUserType' => $form->createView(),
         ]);
     }
-
 }

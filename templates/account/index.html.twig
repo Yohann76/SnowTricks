@@ -11,6 +11,13 @@
 {% block body %}
     <div class="container">
         <h1> Gérer votre compte ! </h1>
+
+        {% for message in app.flashes('info') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
         <p> Bienvenu {{ app.user.firstName }} ! </p>
         <p> Adresse mail :  {{ app.user.email }} </p>
 
@@ -24,5 +31,6 @@
                 <button type="submit" class="btn btn-primary">Ajouter une image</button>
                 {{ form_end(PictureUserType) }}
             </div>
+    <br/>
     </div>
 {% endblock %}
