@@ -51,7 +51,7 @@
         mode: 0777
         recurse: yes
 
-    - name: Fix var bin/console permissions
+    - name: Fix bin/console permissions
       file:
         path: "{{ symfony_console_path }}"
         mode: 0777
@@ -61,7 +61,7 @@
       apt:
         name: composer
         state: latest
-##
+
     - name: Fix var directory permissionss
       file:
         path: "{{ symfony_var_dir }}"
@@ -80,7 +80,7 @@
         - "php {{ installer }}"
         - mv composer.phar /usr/local/bin/composer
       notify: Restart Nginx
-##
+
     - name: Set permissions on Composer
       become: true
       file:
@@ -93,24 +93,15 @@
         working_dir: "{{ symfony_root_dir }}"
         no_dev: no
 
-    #- name : Delete .env ( export github )
-      #become: true
-      #command: rm -rf /var/www/html/Snowtricks/.env
-
-    #- name: Add .env ( import ansible/templates )
-      #become: true
-      #template:
-        #src: templates/.env
-        #dest: "/var/www/html/Snowtricks"
-
-    - name: Add SQL Templating for connexion
+    - name : Delete .env ( export github )
       become: true
-      lineinfile:
-        dest: "{{ symfony_root_dir }}/.env"
-        regexp: "DATABASE_URL ="
-        line: "DATABASE_URL = DATABASE_URL=mysql://user1:{{ sql_pass}}@127.0.0.1:3306/snowtricks"
+      command: rm -rf /var/www/html/Snowtricks/.env
 
-##
+    - name: Add .env ( import ansible/templates )
+      become: true
+      template:
+        src: templates/.env
+        dest: "/var/www/html/Snowtricks"
 
     # Symfony console commands
     - name: Create DB if not exists
@@ -118,9 +109,11 @@
       register: db_create_result
       changed_when: "not db_create_result.stdout|search('already exists. Skipped')"
 
-    - name: Execute migrations
-      command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
-      when: code_changed
+    - name: shemas update
+      command: '{{ symfony_console_path }} doctrine:schema:update --force  --no-interaction'
+
+    - name: migration:generate
+      command: '{{ symfony_console_path }} doctrine:migrations:generate  --no-interaction'
 
     - name: Load data fixtures
       command: '{{ symfony_console_path }} doctrine:fixtures:load --no-interaction'
@@ -128,8 +121,6 @@
 
     - name: Clear cache
       command: '{{ symfony_console_path }} cache:clear --env={{ symfony_env }}'
-      changed_when: false
-      when: code_changed
 
   roles:
     - php
@@ -148,5 +139,4 @@
       service:
         name: php7.3-fpm
         state: restarted
-
 ...
