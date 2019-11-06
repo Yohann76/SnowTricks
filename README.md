@@ -40,7 +40,6 @@ php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixture:load
 ```
 
-
 ## Deployment
 
 ##### For Ansible, create your ansible/hosts.ini and ansible/templates/.env and run:
@@ -55,6 +54,15 @@ docker-compose up -d
 ```
 ##### This website is available in "yohanndurand.fr" 
 
+## Testing 
+For generate a coverage-html
+```
+php bin/phpunit --coverage-html public/data 
+```
+Testing Symfony Website
+```
+php bin/phpunit
+```
 
 If you use the project on a local server, 
 Please check if your server is configured to send mail.

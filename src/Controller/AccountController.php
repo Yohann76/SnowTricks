@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Form\PictureUserType;
 use App\Repository\TricksRepository;
 use App\Repository\UserRepository;
-
 use App\Service\FileUploader;
 use App\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

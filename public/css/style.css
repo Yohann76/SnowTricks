@@ -1,9 +1,7 @@
 /*
 Author : Yohann durand
-License : free
+License : student
 */
-
-
 .navbar  {
     width: 100%;
 }
@@ -108,7 +106,6 @@ ul#embed {
 }
 ul {
     list-style-type : none;
-
 }
 
 .delete_embed_link {
@@ -152,12 +149,10 @@ button.js-embed-scientist-add {
 
 #custom-file {
     width: 100% ;
-
 }
 
 .form-control {
     width: 100% ;
-
 }
 .form-group {
     width: 100% ;
@@ -169,7 +164,6 @@ button.js-embed-scientist-add {
 }
 
 /* FileType Form */
-
 .custom-file-label::after {
     color : #fff ;
     background-color: #007bff;

@@ -4,10 +4,15 @@
 {% block title %}Problème !{% endblock %}
 
 {% block body %}
-    <h1>Vous avez un problème</h1>
-
-    <p>
-        la page demandée n'est pas trouver
-        veuillez entrer une page valide, <a href="{{ path('app_homepage') }}">Aller à la page home </a>.
-    </p>
+    <div class="container">
+        <h1>Vous avez un problème</h1>
+        <p>
+            La page demandée n'est pas trouver<br/>
+            Veuillez entrer une page valide, <a href="{{ path('app_homepage') }}">Aller à la page home </a>.
+        </p>
+        <p>
+            Nous sommes désoler, cette recherche n'a rien donné,<br/>
+            Il se peut que la page n'existe plus, Nous vous souhaitons une agréable visite sur notre site.
+        </p>
+    </div>
 {% endblock %}
