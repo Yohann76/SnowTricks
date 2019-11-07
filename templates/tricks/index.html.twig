@@ -8,18 +8,17 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Les Tricks  </h1>
-</div>
+    <div class="example-wrapper">
+        <h1>Les Tricks  </h1>
+    </div>
 
     <div class="tricks" id="trickList">
         <div class="card-deck">
             {% for tricks in tricks %}
-                <div class="col-sm-3">
+                <div class="col-lg-3 col-md-6 col-sm-12">
                     <div class="card">
                         <!-- Thumbnail  -->
                         {% if tricks.media[0] is defined %}
-
                             {% set number = 0 %}
 
                             {% for media in tricks.media %}

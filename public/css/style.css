@@ -6,6 +6,10 @@ License : student
     width: 100%;
 }
 
+.navbar-toggler {
+    cursor: pointer;
+}
+
 .carousel-item active {
     width: 100%;
 }
@@ -58,7 +62,7 @@ body {
 }
 
 #trickList {
-    width: 100% ;
+    width: 97% ;
 }
 
 #card-deck {
@@ -200,3 +204,29 @@ button#loadMoreComment.btn.btn-primary {
     margin: auto ;
 }
 
+footer {
+    background-color: #919eb9 ;
+}
+
+.footer-copyright {
+    background-color: #343a40 ;
+}
+
+.view  {
+    height: 120px ;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* media */
+@media screen and (max-width: 994px)
+{
+    body {
+    }
+
+    .page-footer {
+        display: none ;
+    }
+
+
+}

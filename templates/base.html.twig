@@ -3,13 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-
+        <meta name="description" content="Snowtricks">
+        <meta name="author" content="Yohann durand">
 
         <title>{% block title %}SnowTricks{% endblock %}</title>
 
         {% block stylesheets %}
+            <!-- Bootstrap core CSS -->
+            <link rel="stylesheet"  href="{{ asset('vendor/bootstrap/css/bootstrap.css') }}" type="text/css"/>
+
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
                   integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
                   crossorigin="anonymous">
@@ -25,45 +27,51 @@
         <!-- Custom styles for this template -->
         <link href="public/css/style.css" rel="stylesheet">
     </head>
+    <!-- NavBar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+         <div class="container">
+             <!-- Navbar brand -->
+             <a class="navbar-brand" href="{{ path('app_homepage') }}">SnowTricks</a>
+          <!-- Collapse button -->
+          <button class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarResponsive"
+                  aria-controls="navbarResponsive"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-  <!-- Navigation -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="{{ path('app_homepage') }}">SnowTricks</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_homepage')}}">Home</a>
-          </li>
+          <!-- Collapsible content -->
+             <div class="collapse navbar-collapse" id="navbarResponsive">
+              <!-- Links -->
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_homepage')}}">Home</a>
+                  </li>
+              {% if is_granted('ROLE_USER') %}
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ path('admin_tricks_index')}}"> Gestion Tricks</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ path('app_account')}}"> Profil</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                  </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                </li>
 
-          {% if is_granted('ROLE_USER') %}
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ path('admin_tricks_index')}}"> Gestion Tricks</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_account')}}"> Profil</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-              </li>
-
-          {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="{{ path('app_register') }}">Register</a>
-            </li>
-
-          {% endif %}
-
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+                </li>
+              {% endif %}
         </ul>
-
       </div>
+
     </div>
   </nav>
 
@@ -77,24 +85,76 @@
           </div>
         </div>
       </div>
-      
-     
-    </header>
 
+    </header>
 
     <body>
         {% block body %}
         {% endblock %}
 
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+                    crossorigin="anonymous"></script>
+
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src ="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> <!-- Nav responsive -->
+        {% endblock %}
     </body>
+    <br/>
+    <!-- Footer -->
+    <footer class="page-footer font-small mdb-color lighten-3 pt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2 col-md-12 mb-4">
+                    <div class="view overlay z-depth-1-half">
+                        <img src="https://contents.mediadecathlon.com/p1666716/640x0/2234pt1465/3850xcr2930/choisir_sb_enfant_media1.jpg" class="img-fluid" alt="">
+                        <a href=""> <div class="mask rgba-white-light"></div></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <!--Image-->
+                    <div class="view overlay z-depth-1-half">
+                        <img src="https://paysages.photos/wp-content/uploads/2017/05/paysage-neige-3-2.jpg" class="img-fluid" alt="">
+                        <a href=""> <div class="mask rgba-white-light"></div></a>
+                    </div>
 
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <!--Image-->
+                    <div class="view overlay z-depth-1-half">
+                        <img src="https://st3.depositphotos.com/15076092/17434/i/1600/depositphotos_174346354-stock-photo-fagus-sylvatica-tree-snow-landscape.jpg" class="img-fluid" alt="">
+                        <a href=""> <div class="mask rgba-white-light"></div></a>
+                    </div>
 
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
-    </div>
-
-  </footer>
-
+                </div>
+                <div class="col-lg-2 col-md-12 mb-4">
+                    <!--Image-->
+                    <div class="view overlay z-depth-1-half">
+                        <img src="https://previews.123rf.com/images/elenathewise/elenathewise1412/elenathewise141200038/34390127-paysage-d-hiver-de-la-for%C3%AAt-couverte-de-neige-et-un-ruisseau-apr%C3%A8s-une-temp%C3%AAte-de-neige-de-l-hiver-b.jpg" class="img-fluid" alt="">
+                        <a href=""> <div class="mask rgba-white-light"></div></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <!--Image-->
+                    <div class="view overlay z-depth-1-half">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/13/13/47/snowy-landscape-1821037_960_720.jpg" class="img-fluid" alt="">
+                        <a href=""> <div class="mask rgba-white-light"></div></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <!--Image-->
+                    <div class="view overlay z-depth-1-half">
+                        <img src="http://4everstatic.com/images/nature/paysages/paysage-enneige,-lac-dans-la-foret,-montagnes-enneigees-218055.jpg" class="img-fluid" alt="">
+                        <a href=""><div class="mask rgba-white-light"></div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
+            <a href="https://yohanndurand.fr"> Yohann Durand</a>
+        </div>
+    </footer>
+    <!-- Footer -->
 </html>
