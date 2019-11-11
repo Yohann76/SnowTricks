@@ -26,13 +26,10 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils)
     {
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
@@ -48,48 +45,48 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * Register and send mail
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request,UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $formAuthenticator)
+    public function register(Request $request,UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $formAuthenticator,\Swift_Mailer $mailer)
     {
         $form = $this->createForm(UserRegistrationType::class);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
+            // Registration
             $user = $form->getData();
-            
-    
             $user->setPassword($passwordEncoder->encodePassword(
                 $user,
                 $user->getPassword()
-                
             ));
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
-            // Si enregistrer,directement connecté en passant par formAuthenticator
+            // Send mail
+            $mailtarget =  $form->get('email')->getData();
+            $message = (new \Swift_Message('SnowTricks Message'))
+                ->setFrom('yohanndurand76@gmail.com')
+                ->setTo($mailtarget)
+                ->setBody(
+                    $this->renderView('emails/signup.html.twig',['name' => $user->getUsername()] ),'text/html') ;
+            $mailer->send($message);
+            // End mail
+
+            // If successfull -> $user connect
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
                 $formAuthenticator,
                 'main'
             );
-
         }
-
         return $this->render('security/register.html.twig', [
             'registrationForm' => $form->createView()
         ]);
     }
 
-
-
-
-
-    // Test Token mdp oublié #S
     /**
      *
      * @Route("/reset", name="reset")
@@ -116,7 +113,6 @@ class SecurityController extends AbstractController
             //  SSL
             //  $https['ssl']['verify_peer'] = FALSE;
             //  $https['ssl']['verify_peer_name'] = FALSE;
-
             $message = (new \Swift_Message('SnowTricks Message'))
                 ->setFrom('yohanndurand76@gmail.com')
                 ->setTo($mailtarget)
@@ -140,6 +136,7 @@ class SecurityController extends AbstractController
             'resetForm' => $form->createView(),
         ]);
     }
+
     /**
      * @Route("/token/{token}", name="resetNow")
      */

@@ -1,15 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Login{% endblock %}
-
-
-
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-
-
-
-
   <form class="form-signin" method="post">
       <h3>Vos informations sont confidentielles</h3>
         {% if error %}
@@ -23,21 +16,16 @@
 
         <input type="hidden" name="_csrf_token"
                value="{{ csrf_token('authenticate') }}">
-
       <!-- Mots de passe oublié -->
       <a href="{{ path('reset') }}">Mots de passe oublié ?</a><br/><br/>
-
 
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" name="_remember_me"> Se souvenir de moi
             </label>
         </div>
-
         <button class="btn btn-lg btn-primary btn-block" type="submit">
-            je souhaite me connecter !
+            Je souhaite me connecter !
         </button>
     </form>
-
-
 {% endblock %}
