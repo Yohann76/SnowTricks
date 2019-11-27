@@ -13,6 +13,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;	
 use Symfony\Component\Form\FormTypeInterface;	
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 
 class MediaType extends AbstractType	
 {	
@@ -20,9 +22,19 @@ class MediaType extends AbstractType
     {	
         $builder	
             ->add('file' ,FileType::class, [	
-                'label' => 'Fichier',	
-                'required'   => true,	
-            ])	
+                'label' => 'Fichier ( png ou jpeg ) ',
+                'required'   => true,
+                'attr' => array(
+                    'accept' => "image/jpeg, image/png"
+                ),
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => ['image/png', 'image/jpeg',],
+                        'mimeTypesMessage' => 'Please upload a valid png/jpeg document',
+                    ])
+                ],
+            ])
             ->add('text', TextType::class, [	
                 'label' => 'Ajouter un texte',	
                 'required'   => true,	

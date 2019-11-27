@@ -47,7 +47,7 @@
                 {%  if media.text == "Embed" %}
                     <div class="delete_embed">{{ media.path|html }}</div>
                     <div class="delete_embed_link">
-                        <a data-toggle="modal" class="btn btn-danger" href="{{ path('image_delete',{id: media.id}) }}" >Supprimer cette Vidéo</a>
+                        <a data-toggle="modal" class="btn btn-danger" href="{{ path('image_delete',{id: media.id}) }}">Supprimer cette Vidéo</a>
                     </div>
                 {% endif  %}
             {% endfor %}

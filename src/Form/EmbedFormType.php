@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Faker\Provider\File;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\Validator\Constraints\Length;
 
 class EmbedFormType extends AbstractType
 {
@@ -19,6 +20,9 @@ class EmbedFormType extends AbstractType
             ->add('Embed', TextType::class, [
                 'label' => 'Veuillez insérer un lien de type "iframe" ',
                 'required'   => false,
+                'constraints' => [
+                    new Length(['min' => 20]),
+                ],
             ])
             ;
     }

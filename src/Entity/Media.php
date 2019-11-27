@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MediaRepository")
@@ -20,8 +22,6 @@ class Media
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $path;
-
-
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -45,6 +45,7 @@ class Media
         $this->Embed = $Embed;
     }
 
+
     private $file;
 
     /**
@@ -55,7 +56,6 @@ class Media
     /**
      * @return mixed
      */
-
     public function getFile()
     {
         return $this->file;
