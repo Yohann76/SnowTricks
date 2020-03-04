@@ -3,7 +3,7 @@ symfony_root_dir: /var/www/html/Snowtricks
 symfony_web_dir: "{{ symfony_root_dir }}/public"
 symfony_var_dir: "{{ symfony_root_dir }}/var"
 symfony_console_path: "{{ symfony_root_dir }}/bin/console"
-server_name: vps
+server_name: snowtricks.yohanndurand.fr
 installer: /tmp/installer.php
 
 symfony_secret: "{{ vault_symfony_secret }}"
