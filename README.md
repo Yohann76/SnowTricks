@@ -52,7 +52,7 @@ run this project with docker containers (docker-compose included in this reposit
 ```
 docker-compose up -d
 ```
-##### This website is available in "yohanndurand.fr" 
+##### This website is available in "snowtricks.yohanndurand.fr" 
 
 ## Testing 
 For generate a coverage-html
